@@ -15,14 +15,33 @@
     <div class="container">
         <h1 class="mt-5">POS App</h1>
 
+        <!-- Form input -->
         <div class="form-group">
             <label for="productName">Product Name</label>
             <input type="text" id="productName" class="form-control" placeholder="Enter Product Name">
         </div>
 
         <div class="form-group">
+            <label for="productCategory">Category</label>
+            <input type="text" id="productCategory" class="form-control" placeholder="Enter Category">
+        </div>
+
+        <div class="form-group">
             <label for="productPrice">Product Price</label>
             <input type="number" id="productPrice" class="form-control" placeholder="Enter Product Price">
+        </div>
+
+        <div class="form-group">
+            <label for="productStock">Stock</label>
+            <input type="number" id="productStock" class="form-control" placeholder="Enter Product Stock" value="0">
+        </div>
+
+        <div class="form-group">
+            <label for="productStatus">Status</label>
+            <select id="productStatus" class="form-control">
+                <option value="available">Available</option>
+                <option value="out-of-stock">Out of Stock</option>
+            </select>
         </div>
 
         <button id="addProductBtn" class="btn btn-primary">Add Product</button>
@@ -44,13 +63,22 @@
 
         document.getElementById('addProductBtn').addEventListener('click', function() {
             const productName = document.getElementById('productName').value.trim();
+            const productCategory = document.getElementById('productCategory').value.trim();
             const productPrice = parseFloat(document.getElementById('productPrice').value.trim());
+            const productStock = parseInt(document.getElementById('productStock').value.trim(), 10);
+            const productStatus = document.getElementById('productStatus').value;
 
-            if (productName && !isNaN(productPrice) && productPrice > 0) {
+            if (productName && productCategory && !isNaN(productPrice) && productPrice > 0 && !isNaN(productStock)) {
                 const listItem = document.createElement('li');
                 listItem.className = 'list-group-item d-flex justify-content-between align-items-center';
                 listItem.innerHTML = `
-                    ${productName} - $${productPrice.toFixed(2)} 
+                    <div>
+                        <strong>${productName}</strong> - $${productPrice.toFixed(2)} 
+                        <span class="badge badge-info ml-2">${productCategory}</span>
+                        <span class="badge badge-${productStatus === 'available' ? 'success' : 'danger'} ml-2">${productStatus.replace(/-/g, ' ')}</span>
+                        <br>
+                        Stock: ${productStock}
+                    </div>
                     <button class="btn btn-danger btn-sm ml-2 removeProductBtn">Remove</button>
                 `;
                 productList.appendChild(listItem);
@@ -60,15 +88,18 @@
 
                 // Clear input fields
                 document.getElementById('productName').value = '';
+                document.getElementById('productCategory').value = '';
                 document.getElementById('productPrice').value = '';
+                document.getElementById('productStock').value = '0';
+                document.getElementById('productStatus').value = 'available';
             } else {
-                alert('Please enter valid product name and price.');
+                alert('Please enter valid product details.');
             }
         });
 
         productList.addEventListener('click', function(e) {
             if (e.target.classList.contains('removeProductBtn')) {
-                const priceText = e.target.parentElement.textContent.match(/\d+\.\d+/)[0];
+                const priceText = e.target.parentElement.innerText.match(/\d+\.\d+/)[0];
                 const price = parseFloat(priceText);
                 total -= price;
                 totalAmount.textContent = total.toFixed(2);
