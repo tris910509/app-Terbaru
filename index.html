@@ -9,6 +9,9 @@
         .product-list {
             margin-top: 20px;
         }
+        .transaction-list {
+            margin-top: 30px;
+        }
     </style>
 </head>
 <body>
@@ -58,9 +61,8 @@
         <h3 class="mt-4">Products List</h3>
         <ul id="productList" class="list-group product-list"></ul>
 
-        <h4 class="mt-4">Total: $<span id="totalAmount">0</span></h4>
-
         <h3 class="mt-5">Transactions</h3>
+        
         <div class="form-group">
             <label for="transactionProduct">Select Product</label>
             <select id="transactionProduct" class="form-control">
@@ -73,9 +75,31 @@
             <input type="number" id="transactionQuantity" class="form-control" placeholder="Enter Quantity">
         </div>
 
+        <div class="form-group">
+            <label for="transactionDiscount">Discount (%)</label>
+            <input type="number" id="transactionDiscount" class="form-control" placeholder="Enter Discount">
+        </div>
+
+        <div class="form-group">
+            <label for="transactionPaymentStatus">Payment Status</label>
+            <select id="transactionPaymentStatus" class="form-control">
+                <option value="paid">Paid</option>
+                <option value="unpaid">Unpaid</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="transactionPaymentMethod">Payment Method</label>
+            <select id="transactionPaymentMethod" class="form-control">
+                <option value="cash">Cash</option>
+                <option value="credit">Credit Card</option>
+                <option value="other">Other</option>
+            </select>
+        </div>
+
         <button id="addTransactionBtn" class="btn btn-primary">Add Transaction</button>
 
-        <h3 class="mt-4">Transaction List</h3>
+        <h3 class="mt-4 transaction-list">Transaction List</h3>
         <ul id="transactionList" class="list-group product-list"></ul>
     </div>
 
@@ -86,12 +110,11 @@
     <script>
         const productList = document.getElementById('productList');
         const transactionList = document.getElementById('transactionList');
-        const totalAmount = document.getElementById('totalAmount');
         const transactionProduct = document.getElementById('transactionProduct');
-        let total = 0;
-        const products = [];
-        const transactions = [];
+        let products = [];
+        let transactions = [];
 
+        // Adding Product
         document.getElementById('addProductBtn').addEventListener('click', function() {
             const productName = document.getElementById('productName').value.trim();
             const productPrice = parseFloat(document.getElementById('productPrice').value.trim());
@@ -112,9 +135,6 @@
                 `;
                 productList.appendChild(listItem);
 
-                total += productPrice;
-                totalAmount.textContent = total.toFixed(2);
-
                 // Clear input fields
                 document.getElementById('productName').value = '';
                 document.getElementById('productPrice').value = '';
@@ -129,31 +149,43 @@
             }
         });
 
-        productList.addEventListener('click', function(e) {
-            if (e.target.classList.contains('removeProductBtn')) {
-                const priceText = e.target.parentElement.textContent.match(/\d+\.\d+/)[0];
-                const price = parseFloat(priceText);
-                total -= price;
-                totalAmount.textContent = total.toFixed(2);
+        // Updating Product List for Transactions
+        function updateTransactionProductSelect() {
+            transactionProduct.innerHTML = '<option value="">Select Product</option>';
+            products.forEach(product => {
+                const option = document.createElement('option');
+                option.value = product.name;
+                option.textContent = product.name;
+                transactionProduct.appendChild(option);
+            });
+        }
 
-                const productName = e.target.parentElement.textContent.split(' - ')[0];
-                const index = products.findIndex(p => p.name === productName);
-                if (index !== -1) products.splice(index, 1);
-
-                e.target.parentElement.remove();
-                updateTransactionProductSelect();
-            }
-        });
-
+        // Adding Transactions
         document.getElementById('addTransactionBtn').addEventListener('click', function() {
             const transactionProductName = document.getElementById('transactionProduct').value.trim();
             const transactionQuantity = parseInt(document.getElementById('transactionQuantity').value.trim());
+            const transactionDiscount = parseFloat(document.getElementById('transactionDiscount').value.trim());
+            const transactionPaymentStatus = document.getElementById('transactionPaymentStatus').value.trim();
+            const transactionPaymentMethod = document.getElementById('transactionPaymentMethod').value.trim();
 
             if (transactionProductName && !isNaN(transactionQuantity) && transactionQuantity > 0) {
                 const product = products.find(p => p.name === transactionProductName);
                 if (product) {
                     if (product.stock >= transactionQuantity) {
-                        const transaction = { product: transactionProductName, quantity: transactionQuantity };
+                        const totalPrice = product.price * transactionQuantity;
+                        const discountAmount = (transactionDiscount / 100) * totalPrice;
+                        const finalPrice = totalPrice - discountAmount;
+
+                        const transaction = {
+                            product: transactionProductName,
+                            quantity: transactionQuantity,
+                            price: product.price,
+                            discount: transactionDiscount,
+                            totalPrice: finalPrice,
+                            paymentStatus: transactionPaymentStatus,
+                            paymentMethod: transactionPaymentMethod
+                        };
+
                         transactions.push(transaction);
 
                         product.stock -= transactionQuantity;
@@ -161,7 +193,8 @@
                         const transactionItem = document.createElement('li');
                         transactionItem.className = 'list-group-item d-flex justify-content-between align-items-center';
                         transactionItem.innerHTML = `
-                            ${transactionProductName} - Quantity: ${transactionQuantity} - Remaining Stock: ${product.stock}
+                            ${transactionProductName} - $${transaction.price.toFixed(2)} x ${transaction.quantity} = $${transaction.totalPrice.toFixed(2)} 
+                            <br> Discount: ${transaction.discount}% - Payment Status: ${transaction.paymentStatus} - Payment Method: ${transaction.paymentMethod}
                             <button class="btn btn-danger btn-sm ml-2 removeTransactionBtn">Remove</button>
                         `;
                         transactionList.appendChild(transactionItem);
@@ -178,6 +211,7 @@
             }
         });
 
+        // Removing Transactions
         transactionList.addEventListener('click', function(e) {
             if (e.target.classList.contains('removeTransactionBtn')) {
                 const transactionProductName = e.target.parentElement.textContent.split(' - ')[0];
@@ -198,16 +232,7 @@
             }
         });
 
-        function updateTransactionProductSelect() {
-            transactionProduct.innerHTML = '<option value="">Select Product</option>';
-            products.forEach(product => {
-                const option = document.createElement('option');
-                option.value = product.name;
-                option.textContent = product.name;
-                transactionProduct.appendChild(option);
-            });
-        }
-
+        // Updating Product List
         function updateProductList() {
             productList.innerHTML = '';
             products.forEach(product => {
