@@ -3,263 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>POS App</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        .product-list {
-            margin-top: 20px;
-        }
-        .transaction-list {
-            margin-top: 30px;
-        }
-    </style>
+    <title>CRUD App</title>
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+
     <div class="container">
-        <h1 class="mt-5">POS App</h1>
+        <h1 class="mt-5">CRUD Aplikasi</h1>
+        <hr>
 
-        <!-- Form to Add Product -->
-        <div class="mb-4">
-            <h3 class="mt-4">Add Product</h3>
-            <div class="form-group">
-                <label for="productName">Product Name</label>
-                <input type="text" id="productName" class="form-control" placeholder="Enter Product Name">
-            </div>
+        <nav class="nav">
+            <a class="nav-link" href="#" id="nav-customers">Customers</a>
+            <a class="nav-link" href="#" id="nav-suppliers">Suppliers</a>
+            <a class="nav-link" href="#" id="nav-categories">Categories</a>
+            <a class="nav-link" href="#" id="nav-products">Products</a>
+            <a class="nav-link" href="#" id="nav-items">Items</a>
+            <a class="nav-link" href="#" id="nav-shipping">Shipping</a>
+            <a class="nav-link" href="#" id="nav-transactions">Transactions</a>
+            <a class="nav-link" href="#" id="nav-payments">Payments</a>
+            <a class="nav-link" href="#" id="nav-status">Status</a>
+            <a class="nav-link" href="#" id="nav-reports">Reports</a>
+        </nav>
 
-            <div class="form-group">
-                <label for="productPrice">Product Price</label>
-                <input type="number" id="productPrice" class="form-control" placeholder="Enter Product Price">
-            </div>
-
-            <div class="form-group">
-                <label for="productCategory">Category</label>
-                <select id="productCategory" class="form-control">
-                    <option value="">Select Category</option>
-                    <option value="Electronics">Electronics</option>
-                    <option value="Clothing">Clothing</option>
-                    <option value="Groceries">Groceries</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="productSupplier">Supplier</label>
-                <input type="text" id="productSupplier" class="form-control" placeholder="Enter Supplier Name">
-            </div>
-
-            <div class="form-group">
-                <label for="productStock">Stock</label>
-                <input type="number" id="productStock" class="form-control" placeholder="Enter Product Stock">
-            </div>
-
-            <div class="form-group">
-                <label for="productStatus">Status</label>
-                <select id="productStatus" class="form-control">
-                    <option value="active">Active</option>
-                    <option value="inactive">Inactive</option>
-                </select>
-            </div>
-
-            <button id="addProductBtn" class="btn btn-primary">Add Product</button>
-        </div>
-
-        <!-- Product List -->
-        <h3 class="mt-4">Products List</h3>
-        <ul id="productList" class="list-group product-list"></ul>
-
-        <!-- Form to Add Transaction -->
-        <div class="mt-5">
-            <h3>Make a Transaction</h3>
-            <div class="form-group">
-                <label for="transactionProduct">Select Product</label>
-                <select id="transactionProduct" class="form-control">
-                    <option value="">Select Product</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="transactionQuantity">Quantity</label>
-                <input type="number" id="transactionQuantity" class="form-control" placeholder="Enter Quantity">
-            </div>
-
-            <div class="form-group">
-                <label for="transactionDiscount">Discount (%)</label>
-                <input type="number" id="transactionDiscount" class="form-control" placeholder="Enter Discount">
-            </div>
-
-            <div class="form-group">
-                <label for="transactionPaymentStatus">Payment Status</label>
-                <select id="transactionPaymentStatus" class="form-control">
-                    <option value="paid">Paid</option>
-                    <option value="unpaid">Unpaid</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="transactionPaymentMethod">Payment Method</label>
-                <select id="transactionPaymentMethod" class="form-control">
-                    <option value="cash">Cash</option>
-                    <option value="credit">Credit Card</option>
-                    <option value="other">Other</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="transactionTotal">Total Amount</label>
-                <input type="text" id="transactionTotal" class="form-control" readonly>
-            </div>
-
-            <button id="addTransactionBtn" class="btn btn-primary">Add Transaction</button>
-        </div>
-
-        <!-- Transaction List -->
-        <h3 class="mt-4 transaction-list">Transaction List</h3>
-        <ul id="transactionList" class="list-group product-list"></ul>
+        <div id="crud-content" class="mt-4"></div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-    <script>
-        const productList = document.getElementById('productList');
-        const transactionList = document.getElementById('transactionList');
-        const transactionProduct = document.getElementById('transactionProduct');
-        let products = [];
-        let transactions = [];
-
-        // Adding Product
-        document.getElementById('addProductBtn').addEventListener('click', function() {
-            const productName = document.getElementById('productName').value.trim();
-            const productPrice = parseFloat(document.getElementById('productPrice').value.trim());
-            const productCategory = document.getElementById('productCategory').value.trim();
-            const productSupplier = document.getElementById('productSupplier').value.trim();
-            const productStock = parseInt(document.getElementById('productStock').value.trim());
-            const productStatus = document.getElementById('productStatus').value.trim();
-
-            if (productName && !isNaN(productPrice) && productPrice > 0 && productCategory) {
-                const product = { name: productName, price: productPrice, category: productCategory, supplier: productSupplier, stock: productStock, status: productStatus };
-                products.push(product);
-
-                const listItem = document.createElement('li');
-                listItem.className = 'list-group-item d-flex justify-content-between align-items-center';
-                listItem.innerHTML = `
-                    ${productName} - $${productPrice.toFixed(2)} - ${productCategory} - ${productSupplier} - Stock: ${productStock} - ${productStatus} 
-                    <button class="btn btn-danger btn-sm ml-2 removeProductBtn">Remove</button>
-                `;
-                productList.appendChild(listItem);
-
-                // Clear input fields
-                document.getElementById('productName').value = '';
-                document.getElementById('productPrice').value = '';
-                document.getElementById('productCategory').value = '';
-                document.getElementById('productSupplier').value = '';
-                document.getElementById('productStock').value = '';
-                document.getElementById('productStatus').value = '';
-
-                updateTransactionProductSelect();
-            } else {
-                alert('Please enter valid product details.');
-            }
-        });
-
-        // Updating Product List for Transactions
-        function updateTransactionProductSelect() {
-            transactionProduct.innerHTML = '<option value="">Select Product</option>';
-            products.forEach(product => {
-                const option = document.createElement('option');
-                option.value = product.name;
-                option.textContent = product.name;
-                transactionProduct.appendChild(option);
-            });
-        }
-
-        // Adding Transactions
-        document.getElementById('addTransactionBtn').addEventListener('click', function() {
-            const transactionProductName = document.getElementById('transactionProduct').value.trim();
-            const transactionQuantity = parseInt(document.getElementById('transactionQuantity').value.trim());
-            const transactionDiscount = parseFloat(document.getElementById('transactionDiscount').value.trim());
-            const transactionPaymentStatus = document.getElementById('transactionPaymentStatus').value.trim();
-            const transactionPaymentMethod = document.getElementById('transactionPaymentMethod').value.trim();
-
-            if (transactionProductName && !isNaN(transactionQuantity) && transactionQuantity > 0) {
-                const product = products.find(p => p.name === transactionProductName);
-                if (product) {
-                    if (product.stock >= transactionQuantity) {
-                        const totalPrice = product.price * transactionQuantity;
-                        const discountAmount = (transactionDiscount / 100) * totalPrice;
-                        const finalPrice = totalPrice - discountAmount;
-
-                        const transaction = {
-                            product: transactionProductName,
-                            quantity: transactionQuantity,
-                            price: product.price,
-                            discount: transactionDiscount,
-                            totalPrice: finalPrice.toFixed(2),
-                            paymentStatus: transactionPaymentStatus,
-                            paymentMethod: transactionPaymentMethod
-                        };
-
-                        transactions.push(transaction);
-
-                        // Deduct stock from the product
-                        product.stock -= transactionQuantity;
-
-                        const transactionItem = document.createElement('li');
-                        transactionItem.className = 'list-group-item d-flex justify-content-between align-items-center';
-                        transactionItem.innerHTML = `
-                            ${transactionProductName} - $${transaction.price.toFixed(2)} x ${transaction.quantity} = $${transaction.totalPrice} 
-                            <br> Discount: ${transaction.discount}% - Payment Status: ${transaction.paymentStatus} - Payment Method: ${transaction.paymentMethod}
-                            <button class="btn btn-danger btn-sm ml-2 removeTransactionBtn">Remove</button>
-                        `;
-                        transactionList.appendChild(transactionItem);
-
-                        document.getElementById('transactionTotal').value = transaction.totalPrice;
-                        updateProductList();
-                    } else {
-                        alert('Insufficient stock.');
-                    }
-                } else {
-                    alert('Product not found.');
-                }
-            } else {
-                alert('Please enter valid transaction details.');
-            }
-        });
-
-        // Removing Transactions
-        transactionList.addEventListener('click', function(e) {
-            if (e.target.classList.contains('removeTransactionBtn')) {
-                const transactionProductName = e.target.parentElement.textContent.split(' - ')[0];
-                const transactionIndex = transactions.findIndex(t => t.product === transactionProductName);
-
-                if (transactionIndex !== -1) {
-                    const transaction = transactions[transactionIndex];
-                    transactions.splice(transactionIndex, 1);
-
-                    const product = products.find(p => p.name === transactionProductName);
-                    if (product) {
-                        product.stock += transaction.quantity;
-                    }
-
-                    e.target.parentElement.remove();
-                    updateProductList();
-                }
-            }
-        });
-
-        // Updating Product List
-        function updateProductList() {
-            productList.innerHTML = '';
-            products.forEach(product => {
-                const listItem = document.createElement('li');
-                listItem.className = 'list-group-item d-flex justify-content-between align-items-center';
-                listItem.innerHTML = `
-                    ${product.name} - $${product.price.toFixed(2)} - ${product.category} - ${product.supplier} - Stock: ${product.stock} - ${product.status} 
-                    <button class="btn btn-danger btn-sm ml-2 removeProductBtn">Remove</button>
-                `;
-                productList.appendChild(listItem);
-            });
-        }
-    </script>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="scripts.js"></script>
 </body>
 </html>
