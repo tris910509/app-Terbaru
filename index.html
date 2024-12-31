@@ -36,6 +36,11 @@
         </div>
 
         <div class="form-group">
+            <label for="productSupplier">Supplier</label>
+            <input type="text" id="productSupplier" class="form-control" placeholder="Enter Supplier Name">
+        </div>
+
+        <div class="form-group">
             <label for="productStock">Stock</label>
             <input type="number" id="productStock" class="form-control" placeholder="Enter Product Stock">
         </div>
@@ -54,6 +59,24 @@
         <ul id="productList" class="list-group product-list"></ul>
 
         <h4 class="mt-4">Total: $<span id="totalAmount">0</span></h4>
+
+        <h3 class="mt-5">Transactions</h3>
+        <div class="form-group">
+            <label for="transactionProduct">Select Product</label>
+            <select id="transactionProduct" class="form-control">
+                <option value="">Select Product</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="transactionQuantity">Quantity</label>
+            <input type="number" id="transactionQuantity" class="form-control" placeholder="Enter Quantity">
+        </div>
+
+        <button id="addTransactionBtn" class="btn btn-primary">Add Transaction</button>
+
+        <h3 class="mt-4">Transaction List</h3>
+        <ul id="transactionList" class="list-group product-list"></ul>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -62,43 +85,47 @@
 
     <script>
         const productList = document.getElementById('productList');
+        const transactionList = document.getElementById('transactionList');
         const totalAmount = document.getElementById('totalAmount');
+        const transactionProduct = document.getElementById('transactionProduct');
         let total = 0;
-
-        // Example of user roles: 'admin' or 'employee'
-        const userRole = 'admin'; // Set role dynamically (for example: 'admin' or 'employee')
+        const products = [];
+        const transactions = [];
 
         document.getElementById('addProductBtn').addEventListener('click', function() {
-            if (userRole === 'admin') {
-                const productName = document.getElementById('productName').value.trim();
-                const productPrice = parseFloat(document.getElementById('productPrice').value.trim());
-                const productCategory = document.getElementById('productCategory').value.trim();
-                const productStock = parseInt(document.getElementById('productStock').value.trim());
-                const productStatus = document.getElementById('productStatus').value.trim();
+            const productName = document.getElementById('productName').value.trim();
+            const productPrice = parseFloat(document.getElementById('productPrice').value.trim());
+            const productCategory = document.getElementById('productCategory').value.trim();
+            const productSupplier = document.getElementById('productSupplier').value.trim();
+            const productStock = parseInt(document.getElementById('productStock').value.trim());
+            const productStatus = document.getElementById('productStatus').value.trim();
 
-                if (productName && !isNaN(productPrice) && productPrice > 0 && productCategory) {
-                    const listItem = document.createElement('li');
-                    listItem.className = 'list-group-item d-flex justify-content-between align-items-center';
-                    listItem.innerHTML = `
-                        ${productName} - $${productPrice.toFixed(2)} - ${productCategory} - ${productStatus} - Stock: ${productStock} 
-                        <button class="btn btn-danger btn-sm ml-2 removeProductBtn">Remove</button>
-                    `;
-                    productList.appendChild(listItem);
+            if (productName && !isNaN(productPrice) && productPrice > 0 && productCategory) {
+                const product = { name: productName, price: productPrice, category: productCategory, supplier: productSupplier, stock: productStock, status: productStatus };
+                products.push(product);
 
-                    total += productPrice;
-                    totalAmount.textContent = total.toFixed(2);
+                const listItem = document.createElement('li');
+                listItem.className = 'list-group-item d-flex justify-content-between align-items-center';
+                listItem.innerHTML = `
+                    ${productName} - $${productPrice.toFixed(2)} - ${productCategory} - ${productSupplier} - Stock: ${productStock} - ${productStatus} 
+                    <button class="btn btn-danger btn-sm ml-2 removeProductBtn">Remove</button>
+                `;
+                productList.appendChild(listItem);
 
-                    // Clear input fields
-                    document.getElementById('productName').value = '';
-                    document.getElementById('productPrice').value = '';
-                    document.getElementById('productCategory').value = '';
-                    document.getElementById('productStock').value = '';
-                    document.getElementById('productStatus').value = '';
-                } else {
-                    alert('Please enter valid product details.');
-                }
+                total += productPrice;
+                totalAmount.textContent = total.toFixed(2);
+
+                // Clear input fields
+                document.getElementById('productName').value = '';
+                document.getElementById('productPrice').value = '';
+                document.getElementById('productCategory').value = '';
+                document.getElementById('productSupplier').value = '';
+                document.getElementById('productStock').value = '';
+                document.getElementById('productStatus').value = '';
+
+                updateTransactionProductSelect();
             } else {
-                alert('You do not have permission to add products.');
+                alert('Please enter valid product details.');
             }
         });
 
@@ -109,9 +136,90 @@
                 total -= price;
                 totalAmount.textContent = total.toFixed(2);
 
+                const productName = e.target.parentElement.textContent.split(' - ')[0];
+                const index = products.findIndex(p => p.name === productName);
+                if (index !== -1) products.splice(index, 1);
+
                 e.target.parentElement.remove();
+                updateTransactionProductSelect();
             }
         });
+
+        document.getElementById('addTransactionBtn').addEventListener('click', function() {
+            const transactionProductName = document.getElementById('transactionProduct').value.trim();
+            const transactionQuantity = parseInt(document.getElementById('transactionQuantity').value.trim());
+
+            if (transactionProductName && !isNaN(transactionQuantity) && transactionQuantity > 0) {
+                const product = products.find(p => p.name === transactionProductName);
+                if (product) {
+                    if (product.stock >= transactionQuantity) {
+                        const transaction = { product: transactionProductName, quantity: transactionQuantity };
+                        transactions.push(transaction);
+
+                        product.stock -= transactionQuantity;
+
+                        const transactionItem = document.createElement('li');
+                        transactionItem.className = 'list-group-item d-flex justify-content-between align-items-center';
+                        transactionItem.innerHTML = `
+                            ${transactionProductName} - Quantity: ${transactionQuantity} - Remaining Stock: ${product.stock}
+                            <button class="btn btn-danger btn-sm ml-2 removeTransactionBtn">Remove</button>
+                        `;
+                        transactionList.appendChild(transactionItem);
+
+                        updateProductList();
+                    } else {
+                        alert('Insufficient stock.');
+                    }
+                } else {
+                    alert('Product not found.');
+                }
+            } else {
+                alert('Please enter valid transaction details.');
+            }
+        });
+
+        transactionList.addEventListener('click', function(e) {
+            if (e.target.classList.contains('removeTransactionBtn')) {
+                const transactionProductName = e.target.parentElement.textContent.split(' - ')[0];
+                const transactionIndex = transactions.findIndex(t => t.product === transactionProductName);
+
+                if (transactionIndex !== -1) {
+                    const transaction = transactions[transactionIndex];
+                    transactions.splice(transactionIndex, 1);
+
+                    const product = products.find(p => p.name === transactionProductName);
+                    if (product) {
+                        product.stock += transaction.quantity;
+                    }
+
+                    e.target.parentElement.remove();
+                    updateProductList();
+                }
+            }
+        });
+
+        function updateTransactionProductSelect() {
+            transactionProduct.innerHTML = '<option value="">Select Product</option>';
+            products.forEach(product => {
+                const option = document.createElement('option');
+                option.value = product.name;
+                option.textContent = product.name;
+                transactionProduct.appendChild(option);
+            });
+        }
+
+        function updateProductList() {
+            productList.innerHTML = '';
+            products.forEach(product => {
+                const listItem = document.createElement('li');
+                listItem.className = 'list-group-item d-flex justify-content-between align-items-center';
+                listItem.innerHTML = `
+                    ${product.name} - $${product.price.toFixed(2)} - ${product.category} - ${product.supplier} - Stock: ${product.stock} - ${product.status} 
+                    <button class="btn btn-danger btn-sm ml-2 removeProductBtn">Remove</button>
+                `;
+                productList.appendChild(listItem);
+            });
+        }
     </script>
 </body>
 </html>
