@@ -3,52 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>POS System</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <title>POS App</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body {
-            padding: 20px;
-        }
-        table {
-            width: 100%;
-        }
-        th, td {
-            text-align: center;
+        .product-list {
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
+    <div class="container">
+        <h1 class="mt-5">POS App</h1>
 
-    <h1 class="mb-4">Point of Sale System</h1>
-
-    <form id="productForm">
         <div class="form-group">
             <label for="productName">Product Name</label>
-            <input type="text" id="productName" class="form-control" placeholder="Enter product name" required>
+            <input type="text" id="productName" class="form-control" placeholder="Enter Product Name">
         </div>
+
         <div class="form-group">
             <label for="productPrice">Product Price</label>
-            <input type="number" id="productPrice" class="form-control" placeholder="Enter product price" required>
+            <input type="number" id="productPrice" class="form-control" placeholder="Enter Product Price">
         </div>
-        <button type="submit" class="btn btn-success">Add Product</button>
-    </form>
 
-    <h2 class="mt-4">Product List</h2>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Product Name</th>
-                <th>Price</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody id="productTable"></tbody>
-    </table>
+        <button id="addProductBtn" class="btn btn-primary">Add Product</button>
+        
+        <h3 class="mt-4">Products List</h3>
+        <ul id="productList" class="list-group product-list"></ul>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <script src="app.js"></script>
+        <h4 class="mt-4">Total: $<span id="totalAmount">0</span></h4>
+    </div>
 
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        const productList = document.getElementById('productList');
+        const totalAmount = document.getElementById('totalAmount');
+        let total = 0;
+
+        document.getElementById('addProductBtn').addEventListener('click', function() {
+            const productName = document.getElementById('productName').value.trim();
+            const productPrice = parseFloat(document.getElementById('productPrice').value.trim());
+
+            if (productName && !isNaN(productPrice) && productPrice > 0) {
+                const listItem = document.createElement('li');
+                listItem.className = 'list-group-item d-flex justify-content-between align-items-center';
+                listItem.innerHTML = `
+                    ${productName} - $${productPrice.toFixed(2)} 
+                    <button class="btn btn-danger btn-sm ml-2 removeProductBtn">Remove</button>
+                `;
+                productList.appendChild(listItem);
+
+                total += productPrice;
+                totalAmount.textContent = total.toFixed(2);
+
+                // Clear input fields
+                document.getElementById('productName').value = '';
+                document.getElementById('productPrice').value = '';
+            } else {
+                alert('Please enter valid product name and price.');
+            }
+        });
+
+        productList.addEventListener('click', function(e) {
+            if (e.target.classList.contains('removeProductBtn')) {
+                const priceText = e.target.parentElement.textContent.match(/\d+\.\d+/)[0];
+                const price = parseFloat(priceText);
+                total -= price;
+                totalAmount.textContent = total.toFixed(2);
+
+                e.target.parentElement.remove();
+            }
+        });
+    </script>
 </body>
 </html>
