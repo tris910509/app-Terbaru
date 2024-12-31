@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manajemen User, Kategori, Supplier, dan Produk</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center">Manajemen User, Kategori, Supplier, dan Produk</h2>
+        
+        <!-- Form Tambah User -->
+        <div class="card mt-4">
+            <div class="card-header bg-primary text-white">Form Tambah User</div>
+            <div class="card-body">
+                <form id="userForm">
+                    <!-- User fields -->
+                    <div class="mb-3">
+                        <label for="userId" class="form-label">ID User</label>
+                        <input type="text" class="form-control" id="userId" placeholder="Masukkan ID User" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="userName" class="form-label">Nama User</label>
+                        <input type="text" class="form-control" id="userName" placeholder="Masukkan Nama User" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="userEmail" class="form-label">Email User</label>
+                        <input type="email" class="form-control" id="userEmail" placeholder="Masukkan Email User" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="userPhone" class="form-label">No Handphone User</label>
+                        <input type="text" class="form-control" id="userPhone" placeholder="Masukkan No Handphone" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="userAddress" class="form-label">Alamat User</label>
+                        <textarea class="form-control" id="userAddress" rows="3" placeholder="Masukkan Alamat" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="userStatus" class="form-label">Status User</label>
+                        <select class="form-select" id="userStatus" required>
+                            <option value="Admin">Admin</option>
+                            <option value="Kasir">Kasir</option>
+                            <option value="Operator">Operator</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-success">Simpan</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Form Tambah Kategori -->
+        <div class="card mt-4">
+            <div class="card-header bg-primary text-white">Form Tambah Kategori</div>
+            <div class="card-body">
+                <form id="categoryForm">
+                    <div class="mb-3">
+                        <label for="categoryId" class="form-label">ID Kategori</label>
+                        <input type="text" class="form-control" id="categoryId" placeholder="Masukkan ID Kategori" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="categoryName" class="form-label">Nama Kategori</label>
+                        <input type="text" class="form-control" id="categoryName" placeholder="Masukkan Nama Kategori" required>
+                    </div>
+                    <button type="submit" class="btn btn-success">Simpan</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Form Tambah Supplier -->
+        <div class="card mt-4">
+            <div class="card-header bg-primary text-white">Form Tambah Supplier</div>
+            <div class="card-body">
+                <form id="supplierForm">
+                    <div class="mb-3">
+                        <label for="supplierId" class="form-label">ID Supplier</label>
+                        <input type="text" class="form-control" id="supplierId" placeholder="Masukkan ID Supplier" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="supplierName" class="form-label">Nama Supplier</label>
+                        <input type="text" class="form-control" id="supplierName" placeholder="Masukkan Nama Supplier" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="supplierPhone" class="form-label">No Handphone Supplier</label>
+                        <input type="text" class="form-control" id="supplierPhone" placeholder="Masukkan No Handphone" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="supplierCompany" class="form-label">Nama Perusahaan</label>
+                        <input type="text" class="form-control" id="supplierCompany" placeholder="Masukkan Nama Perusahaan" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="supplierAddress" class="form-label">Alamat Supplier</label>
+                        <textarea class="form-control" id="supplierAddress" rows="3" placeholder="Masukkan Alamat Supplier" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-success">Simpan</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Form Tambah Produk -->
+        <div class="card mt-4">
+            <div class="card-header bg-primary text-white">Form Tambah Produk</div>
+            <div class="card-body">
+                <form id="productForm">
+                    <div class="mb-3">
+                        <label for="productId" class="form-label">ID Produk</label>
+                        <input type="text" class="form-control" id="productId" placeholder="Masukkan ID Produk" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="productName" class="form-label">Nama Produk</label>
+                        <input type="text" class="form-control" id="productName" placeholder="Masukkan Nama Produk" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="categorySelect" class="form-label">Kategori Barang</label>
+                        <select class="form-select" id="categorySelect" required></select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="supplierSelect" class="form-label">Supplier</label>
+                        <select class="form-select" id="supplierSelect" required></select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="productStock" class="form-label">Stok</label>
+                        <input type="number" class="form-control" id="productStock" placeholder="Masukkan Stok Produk" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="productPrice" class="form-label">Harga</label>
+                        <input type="number" class="form-control" id="productPrice" placeholder="Masukkan Harga Produk" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="productStatus" class="form-label">Status</label>
+                        <select class="form-select" id="productStatus" required>
+                            <option value="Publik">Publik</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Tidak Aktif">Tidak Aktif</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="productDescription" class="form-label">Keterangan Produk</label>
+                        <textarea class="form-control" id="productDescription" rows="3" placeholder="Masukkan Keterangan Produk"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-success">Simpan</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Daftar Kategori, Supplier, dan Produk -->
+        <div class="card mt-4">
+            <div class="card-header bg-secondary text-white">Daftar Kategori, Supplier, dan Produk</div>
+            <div class="card-body">
+                <!-- Kategori -->
+                <h5 class="mb-3">Daftar Kategori</h5>
+                <table class="table table-bordered" id="categoryTable">
+                    <thead>
+                        <tr>
+                            <th>ID Kategori</th>
+                            <th>Nama Kategori</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+
+                <!-- Supplier -->
+                <h5 class="mt-4 mb-3">Daftar Supplier</h5>
+                <table class="table table-bordered" id="supplierTable">
+                    <thead>
+                        <tr>
+                            <th>ID Supplier</th>
+                            <th>Nama Supplier</th>
+                            <th>No Handphone</th>
+                            <th>Nama Perusahaan</th>
+                            <th>Alamat</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+
+                <!-- Produk -->
+                <h5 class="mt-4 mb-3">Daftar Produk</h5>
+                <table class="table table-bordered" id="productTable">
+                    <thead>
+                        <tr>
+                            <th>ID Produk</th>
+                            <th>Nama Produk</th>
+                            <th>Kategori</th>
+                            <th>Supplier</th>
+                            <th>Stok</th>
+                            <th>Harga</th>
+                            <th>Status</th>
+                            <th>Keterangan Produk</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            loadUsers();
+            loadCategories();
+            loadSuppliers();
+            loadProducts();
+        });
+
+        const userForm = document.getElementById('userForm');
+        const categoryForm = document.getElementById('categoryForm');
+        const supplierForm = document.getElementById('supplierForm');
+        const productForm = document.getElementById('productForm');
+
+        const userTable = document.getElementById('userTable').querySelector('tbody');
+        const categoryTable = document.getElementById('categoryTable').querySelector('tbody');
+        const supplierTable = document.getElementById('supplierTable').querySelector('tbody');
+        const productTable = document.getElementById('productTable').querySelector('tbody');
+
+        // Fungsi untuk menyimpan user ke LocalStorage
+        function saveUser(user) {
+            let users = JSON.parse(localStorage.getItem('users')) || [];
+            users.push(user);
+            localStorage.setItem('users', JSON.stringify(users));
+        }
+
+        // Fungsi untuk memuat data user ke tabel
+        function loadUsers() {
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            userTable.innerHTML = ''; // Kosongkan tabel
+            users.forEach((user, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${user.id}</td>
+                    <td>${user.name}</td>
+                    <td>${user.email}</td>
+                    <td>${user.phone}</td>
+                    <td>${user.address}</td>
+                    <td>${user.status}</td>
+                    <td>
+                        <button class="btn btn-warning btn-sm" onclick="editUser(${index})">Edit</button>
+                        <button class="btn btn-danger btn-sm" onclick="deleteUser(${index})">Hapus</button>
+                    </td>
+                `;
+                userTable.appendChild(row);
+            });
+        }
+
+        // Fungsi untuk menyimpan kategori ke LocalStorage
+        function saveCategory(category) {
+            let categories = JSON.parse(localStorage.getItem('categories')) || [];
+            categories.push(category);
+            localStorage.setItem('categories', JSON.stringify(categories));
+        }
+
+        // Fungsi untuk memuat data kategori ke tabel
+        function loadCategories() {
+            const categories = JSON.parse(localStorage.getItem('categories')) || [];
+            categoryTable.innerHTML = '';
+            categories.forEach((category, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${category.id}</td>
+                    <td>${category.name}</td>
+                    <td>
+                        <button class="btn btn-warning btn-sm" onclick="editCategory(${index})">Edit</button>
+                        <button class="btn btn-danger btn-sm" onclick="deleteCategory(${index})">Hapus</button>
+                    </td>
+                `;
+                categoryTable.appendChild(row);
+            });
+
+            // Populate category dropdown in product form
+            const categorySelect = document.getElementById('categorySelect');
+            categories.forEach(category => {
+                const option = document.createElement('option');
+                option.value = category.id;
+                option.textContent = category.name;
+                categorySelect.appendChild(option);
+            });
+        }
+
+        // Fungsi untuk menyimpan supplier ke LocalStorage
+        function saveSupplier(supplier) {
+            let suppliers = JSON.parse(localStorage.getItem('suppliers')) || [];
+            suppliers.push(supplier);
+            localStorage.setItem('suppliers', JSON.stringify(suppliers));
+        }
+
+        // Fungsi untuk memuat data supplier ke tabel
+        function loadSuppliers() {
+            const suppliers = JSON.parse(localStorage.getItem('suppliers')) || [];
+            supplierTable.innerHTML = '';
+            suppliers.forEach((supplier, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${supplier.id}</td>
+                    <td>${supplier.name}</td>
+                    <td>${supplier.phone}</td>
+                    <td>${supplier.company}</td>
+                    <td>${supplier.address}</td>
+                    <td>
+                        <button class="btn btn-warning btn-sm" onclick="editSupplier(${index})">Edit</button>
+                        <button class="btn btn-danger btn-sm" onclick="deleteSupplier(${index})">Hapus</button>
+                    </td>
+                `;
+                supplierTable.appendChild(row);
+            });
+
+            // Populate supplier dropdown in product form
+            const supplierSelect = document.getElementById('supplierSelect');
+            suppliers.forEach(supplier => {
+                const option = document.createElement('option');
+                option.value = supplier.id;
+                option.textContent = supplier.name;
+                supplierSelect.appendChild(option);
+            });
+        }
+
+        // Fungsi untuk menyimpan produk ke LocalStorage
+        function saveProduct(product) {
+            let products = JSON.parse(localStorage.getItem('products')) || [];
+            products.push(product);
+            localStorage.setItem('products', JSON.stringify(products));
+        }
+
+        // Fungsi untuk memuat data produk ke tabel
+        function loadProducts() {
+            const products = JSON.parse(localStorage.getItem('products')) || [];
+            productTable.innerHTML = '';
+            products.forEach((product, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${product.id}</td>
+                    <td>${product.name}</td>
+                    <td>${product.category}</td>
+                    <td>${product.supplier}</td>
+                    <td>${product.stock}</td>
+                    <td>${product.price}</td>
+                    <td>${product.status}</td>
+                    <td>${product.description}</td>
+                    <td>
+                        <button class="btn btn-warning btn-sm" onclick="editProduct(${index})">Edit</button>
+                        <button class="btn btn-danger btn-sm" onclick="deleteProduct(${index})">Hapus</button>
+                    </td>
+                `;
+                productTable.appendChild(row);
+            });
+        }
+
+        // Fungsi untuk menghapus user
+        function deleteUser(index) {
+            let users = JSON.parse(localStorage.getItem('users')) || [];
+            users.splice(index, 1);
+            localStorage.setItem('users', JSON.stringify(users));
+            loadUsers();
+        }
+
+        // Fungsi untuk menghapus kategori
+        function deleteCategory(index) {
+            let categories = JSON.parse(localStorage.getItem('categories')) || [];
+            categories.splice(index, 1);
+            localStorage.setItem('categories', JSON.stringify(categories));
+            loadCategories();
+        }
+
+        // Fungsi untuk menghapus supplier
+        function deleteSupplier(index) {
+            let suppliers = JSON.parse(localStorage.getItem('suppliers')) || [];
+            suppliers.splice(index, 1);
+            localStorage.setItem('suppliers', JSON.stringify(suppliers));
+            loadSuppliers();
+        }
+
+        // Fungsi untuk menghapus produk
+        function deleteProduct(index) {
+            let products = JSON.parse(localStorage.getItem('products')) || [];
+            products.splice(index, 1);
+            localStorage.setItem('products', JSON.stringify(products));
+            loadProducts();
+        }
+
+        // Fungsi untuk edit user
+        function editUser(index) {
+            let users = JSON.parse(localStorage.getItem('users')) || [];
+            const user = users[index];
+
+            document.getElementById('userId').value = user.id;
+            document.getElementById('userName').value = user.name;
+            document.getElementById('userEmail').value = user.email;
+            document.getElementById('userPhone').value = user.phone;
+            document.getElementById('userAddress').value = user.address;
+            document.getElementById('userStatus').value = user.status;
+
+            deleteUser(index); // Hapus data sementara untuk diupdate
+        }
+
+        // Fungsi untuk edit kategori
+        function editCategory(index) {
+            let categories = JSON.parse(localStorage.getItem('categories')) || [];
+            const category = categories[index];
+
+            document.getElementById('categoryId').value = category.id;
+            document.getElementById('categoryName').value = category.name;
+
+            deleteCategory(index); // Hapus data sementara untuk diupdate
+        }
+
+        // Fungsi untuk edit supplier
+        function editSupplier(index) {
+            let suppliers = JSON.parse(localStorage.getItem('suppliers')) || [];
+            const supplier = suppliers[index];
+
+            document.getElementById('supplierId').value = supplier.id;
+            document.getElementById('supplierName').value = supplier.name;
+            document.getElementById('supplierPhone').value = supplier.phone;
+            document.getElementById('supplierCompany').value = supplier.company;
+            document.getElementById('supplierAddress').value = supplier.address;
+
+            deleteSupplier(index); // Hapus data sementara untuk diupdate
+        }
+
+        // Fungsi untuk edit produk
+        function editProduct(index) {
+            let products = JSON.parse(localStorage.getItem('products')) || [];
+            const product = products[index];
+
+            document.getElementById('productId').value = product.id;
+            document.getElementById('productName').value = product.name;
+            document.getElementById('categorySelect').value = product.category;
+            document.getElementById('supplierSelect').value = product.supplier;
+            document.getElementById('productStock').value = product.stock;
+            document.getElementById('productPrice').value = product.price;
+            document.getElementById('productStatus').value = product.status;
+            document.getElementById('productDescription').value = product.description;
+
+            deleteProduct(index); // Hapus data sementara untuk diupdate
+        }
+
+        // Fungsi untuk menyimpan data user saat submit
+        userForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const user = {
+                id: document.getElementById('userId').value,
+                name: document.getElementById('userName').value,
+                email: document.getElementById('userEmail').value,
+                phone: document.getElementById('userPhone').value,
+                address: document.getElementById('userAddress').value,
+                status: document.getElementById('userStatus').value
+            };
+
+            saveUser(user);
+            userForm.reset();
+            loadUsers();
+        });
+
+        // Fungsi untuk menyimpan data kategori saat submit
+        categoryForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const category = {
+                id: document.getElementById('categoryId').value,
+                name: document.getElementById('categoryName').value
+            };
+
+            saveCategory(category);
+            categoryForm.reset();
+            loadCategories();
+        });
+
+        // Fungsi untuk menyimpan data supplier saat submit
+        supplierForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const supplier = {
+                id: document.getElementById('supplierId').value,
+                name: document.getElementById('supplierName').value,
+                phone: document.getElementById('supplierPhone').value,
+                company: document.getElementById('supplierCompany').value,
+                address: document.getElementById('supplierAddress').value
+            };
+
+            saveSupplier(supplier);
+            supplierForm.reset();
+            loadSuppliers();
+        });
+
+        // Fungsi untuk menyimpan data produk saat submit
+        productForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const product = {
+                id: document.getElementById('productId').value,
+                name: document.getElementById('productName').value,
+                category: document.getElementById('categorySelect').value,
+                supplier: document.getElementById('supplierSelect').value,
+                stock: document.getElementById('productStock').value,
+                price: document.getElementById('productPrice').value,
+                status: document.getElementById('productStatus').value,
+                description: document.getElementById('productDescription').value
+            };
+
+            saveProduct(product);
+            productForm.reset();
+            loadProducts();
+        });
+    </script>
+</body>
+</html>
