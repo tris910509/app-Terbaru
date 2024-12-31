@@ -4,43 +4,20 @@ document.addEventListener('DOMContentLoaded', function() {
     const productPriceInput = document.getElementById('productPrice');
     const productTable = document.getElementById('productTable').getElementsByTagName('tbody')[0];
 
-    // Helper functions to handle localStorage
+    // Helper function to retrieve products from localStorage
     const getProducts = () => {
         const products = localStorage.getItem('products');
         return products ? JSON.parse(products) : [];
     };
 
+    // Helper function to save products to localStorage
     const saveProducts = (products) => {
         localStorage.setItem('products', JSON.stringify(products));
     };
 
-    const addProduct = (product) => {
+    // Function to render products in the table
+    const renderProducts = () => {
         const products = getProducts();
-        products.push(product);
-        saveProducts(products);
-    };
-
-    const getAllProducts = () => {
-        const products = getProducts();
-        renderProducts(products);
-    };
-
-    const updateProduct = (id, updatedProduct) => {
-        const products = getProducts();
-        const index = products.findIndex((p) => p.id === id);
-        if (index !== -1) {
-            products[index] = { ...products[index], ...updatedProduct };
-            saveProducts(products);
-        }
-    };
-
-    const deleteProduct = (id) => {
-        const products = getProducts();
-        const filteredProducts = products.filter((p) => p.id !== id);
-        saveProducts(filteredProducts);
-    };
-
-    const renderProducts = (products) => {
         productTable.innerHTML = '';
         products.forEach((product, index) => {
             const row = productTable.insertRow();
@@ -49,66 +26,71 @@ document.addEventListener('DOMContentLoaded', function() {
                 <td>${product.name}</td>
                 <td>${product.price}</td>
                 <td>
-                    <button class="btn btn-primary" onclick="editProduct(${index})">Edit</button>
-                    <button class="btn btn-danger" onclick="removeProduct(${product.id})">Delete</button>
+                    <button class="btn btn-primary" onclick="editProduct('${product.id}')">Edit</button>
+                    <button class="btn btn-danger" onclick="deleteProduct('${product.id}')">Delete</button>
                 </td>
             `;
         });
     };
 
-    const addProductFromForm = (e) => {
-        e.preventDefault();
-        const id = Date.now().toString(); // Generate unique ID
-        const name = productNameInput.value;
-        const price = productPriceInput.value;
+    // Function to add a new product
+    const addProduct = (product) => {
+        const products = getProducts();
+        products.push(product);
+        saveProducts(products);
+        renderProducts();
+    };
 
-        if (name && price) {
-            addProduct({ id, name, price });
-            productNameInput.value = '';
-            productPriceInput.value = '';
-            getAllProducts();
+    // Function to update a product
+    const updateProduct = (id, updatedProduct) => {
+        const products = getProducts();
+        const index = products.findIndex((product) => product.id === id);
+        if (index !== -1) {
+            products[index] = { ...products[index], ...updatedProduct };
+            saveProducts(products);
         }
     };
 
-    const editProduct = (index) => {
+    // Function to delete a product
+    const deleteProduct = (id) => {
         const products = getProducts();
-        const product = products[index];
-        productNameInput.value = product.name;
-        productPriceInput.value = product.price;
-        productForm.setAttribute('data-edit-id', product.id);
+        const updatedProducts = products.filter((product) => product.id !== id);
+        saveProducts(updatedProducts);
+        renderProducts();
     };
 
-    const updateProductFromForm = (e) => {
+    // Function to edit a product
+    const editProduct = (id) => {
+        const products = getProducts();
+        const product = products.find((product) => product.id === id);
+        if (product) {
+            productNameInput.value = product.name;
+            productPriceInput.value = product.price;
+            productForm.setAttribute('data-edit-id', id);
+        }
+    };
+
+    // Event listener for form submission
+    productForm.addEventListener('submit', function(e) {
         e.preventDefault();
         const id = productForm.getAttribute('data-edit-id');
-        const name = productNameInput.value;
-        const price = productPriceInput.value;
+        const name = productNameInput.value.trim();
+        const price = productPriceInput.value.trim();
 
-        if (name && price && id) {
-            updateProduct(id, { name, price });
+        if (name && price) {
+            if (id) {
+                updateProduct(id, { name, price });
+                productForm.removeAttribute('data-edit-id');
+            } else {
+                const newProduct = { id: Date.now().toString(), name, price };
+                addProduct(newProduct);
+            }
+
             productNameInput.value = '';
             productPriceInput.value = '';
-            productForm.removeAttribute('data-edit-id');
-            getAllProducts();
-        }
-    };
-
-    const removeProduct = (id) => {
-        if (confirm('Are you sure you want to delete this product?')) {
-            deleteProduct(id);
-            getAllProducts();
-        }
-    };
-
-    // Event listeners
-    productForm.addEventListener('submit', function(e) {
-        if (productForm.getAttribute('data-edit-id')) {
-            updateProductFromForm(e);
-        } else {
-            addProductFromForm(e);
         }
     });
 
     // Initial load
-    getAllProducts();
+    renderProducts();
 });
