@@ -1,149 +1,329 @@
-// Load data dari LocalStorage saat halaman dimuat
-        document.addEventListener('DOMContentLoaded', loadUsers);
+let userIdCounter = 1;
 
-        const userForm = document.getElementById('userForm');
-        const userTable = document.getElementById('userTable').querySelector('tbody');
+function addUser() {
+    const idUser = document.getElementById('idUser').value.trim();
+    const namaUser = document.getElementById('namaUser').value.trim();
+    const emailUser = document.getElementById('emailUser').value.trim();
+    const noHpUser = document.getElementById('noHpUser').value.trim();
+    const alamatUser = document.getElementById('alamatUser').value.trim();
+    const statusUser = document.getElementById('statusUser').value.trim();
 
-        // Fungsi validasi input
-        function validateForm(user) {
-            if (!user.id || !user.name || !user.email || !user.phone || !user.address || !user.status) {
-                alert('Semua field wajib diisi.');
-                return false;
-            }
+    if (namaUser && emailUser && noHpUser && alamatUser && statusUser) {
+        const tbody = document.getElementById('tableUser').querySelector('tbody');
+        const row = tbody.insertRow();
 
-            // Validasi format email
-            const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-            if (!emailPattern.test(user.email)) {
-                alert('Format email tidak valid.');
-                return false;
-            }
+        row.innerHTML = `
+            <td>${userIdCounter++}</td>
+            <td>${namaUser}</td>
+            <td>${emailUser}</td>
+            <td>${noHpUser}</td>
+            <td>${alamatUser}</td>
+            <td>${statusUser}</td>
+        `;
 
-            // Validasi nomor handphone (harus berupa angka)
-            if (isNaN(user.phone)) {
-                alert('No handphone hanya boleh berisi angka.');
-                return false;
-            }
+        document.getElementById('formUser').reset();
+    } else {
+        alert('Please fill in all fields!');
+    }
+}
 
-            return true;
+
+
+let kategoriIdCounter = 1;
+
+function addKategori() {
+    const idKategori = document.getElementById('idKategori').value.trim();
+    const namaKategori = document.getElementById('namaKategori').value.trim();
+
+    if (namaKategori) {
+        const tbody = document.getElementById('tableKategoriBarang').querySelector('tbody');
+        const row = tbody.insertRow();
+
+        row.innerHTML = `
+            <td>${kategoriIdCounter++}</td>
+            <td>${namaKategori}</td>
+        `;
+
+        document.getElementById('formKategoriBarang').reset();
+    } else {
+        alert('Please enter a category name!');
+    }
+}
+
+
+
+let supplierIdCounter = 1;
+
+function addSupplier() {
+    const idSupplier = document.getElementById('idSupplier').value.trim();
+    const namaSupplier = document.getElementById('namaSupplier').value.trim();
+    const noHpSupplier = document.getElementById('noHpSupplier').value.trim();
+    const namaPerusahaan = document.getElementById('namaPerusahaan').value.trim();
+    const alamatSupplier = document.getElementById('alamatSupplier').value.trim();
+
+    if (namaSupplier && noHpSupplier && namaPerusahaan && alamatSupplier) {
+        const tbody = document.getElementById('tableSupplier').querySelector('tbody');
+        const row = tbody.insertRow();
+
+        row.innerHTML = `
+            <td>${supplierIdCounter++}</td>
+            <td>${namaSupplier}</td>
+            <td>${noHpSupplier}</td>
+            <td>${namaPerusahaan}</td>
+            <td>${alamatSupplier}</td>
+        `;
+
+        document.getElementById('formSupplier').reset();
+    } else {
+        alert('Please fill in all fields!');
+    }
+}
+
+
+
+
+let produkIdCounter = 1;
+
+function addProduk() {
+    const idProduk = document.getElementById('idProduk').value.trim();
+    const namaProduk = document.getElementById('namaProduk').value.trim();
+    const namaKategoriProduk = document.getElementById('namaKategoriProduk').value.trim();
+    const namaSupplierProduk = document.getElementById('namaSupplierProduk').value.trim();
+    const stokProduk = document.getElementById('stokProduk').value.trim();
+    const hargaProduk = document.getElementById('hargaProduk').value.trim();
+    const statusProduk = document.getElementById('statusProduk').value.trim();
+    const keteranganProduk = document.getElementById('keteranganProduk').value.trim();
+
+    if (namaProduk && namaKategoriProduk && namaSupplierProduk && stokProduk && hargaProduk && statusProduk) {
+        const tbody = document.getElementById('tableProduk').querySelector('tbody');
+        const row = tbody.insertRow();
+
+        row.innerHTML = `
+            <td>${produkIdCounter++}</td>
+            <td>${namaProduk}</td>
+            <td>${namaKategoriProduk}</td>
+            <td>${namaSupplierProduk}</td>
+            <td>${stokProduk}</td>
+            <td>${hargaProduk}</td>
+            <td>${statusProduk}</td>
+            <td>${keteranganProduk}</td>
+        `;
+
+        document.getElementById('formProduk').reset();
+    } else {
+        alert('Please fill in all fields!');
+    }
+}
+
+
+
+
+
+let transaksiIdCounter = 1;
+
+function addTransaksi() {
+    const idTransaksi = document.getElementById('idTransaksi').value.trim();
+    const namaPelangganTransaksi = document.getElementById('namaPelangganTransaksi').value.trim();
+    const namaProdukTransaksi = document.getElementById('namaProdukTransaksi').value.trim();
+    const namaKategoriTransaksi = document.getElementById('namaKategoriTransaksi').value.trim();
+    const jumlahTransaksi = document.getElementById('jumlahTransaksi').value.trim();
+    const diskonTransaksi = document.getElementById('diskonTransaksi').value.trim();
+    const statusTransaksi = document.getElementById('statusTransaksi').value.trim();
+
+    const hargaProduk = 100; // Mock harga produk (ubah sesuai dengan logika data produk)
+    const totalTransaksi = jumlahTransaksi * hargaProduk - diskonTransaksi;
+    const kembalianTransaksi = totalTransaksi; // Asumsi pembayaran penuh
+
+    if (namaPelangganTransaksi && namaProdukTransaksi && namaKategoriTransaksi && jumlahTransaksi && statusTransaksi) {
+        const tbody = document.getElementById('tableTransaksiPOS').querySelector('tbody');
+        const row = tbody.insertRow();
+
+        row.innerHTML = `
+            <td>${transaksiIdCounter++}</td>
+            <td>${namaPelangganTransaksi}</td>
+            <td>${namaProdukTransaksi}</td>
+            <td>${namaKategoriTransaksi}</td>
+            <td>${jumlahTransaksi}</td>
+            <td>${diskonTransaksi}</td>
+            <td>${totalTransaksi}</td>
+            <td>${kembalianTransaksi}</td>
+            <td>${statusTransaksi}</td>
+        `;
+
+        document.getElementById('formTransaksiPOS').reset();
+    } else {
+        alert('Please fill in all fields!');
+    }
+}
+
+
+
+
+let pembayaranIdCounter = 1;
+
+function konfirmasiPesanan() {
+    const idPembayaranPesanan = document.getElementById('idPembayaranPesanan').value.trim();
+    const namaPelangganPembayaran = document.getElementById('namaPelangganPembayaran').value.trim();
+    const detailTransaksiPembayaran = document.getElementById('detailTransaksiPembayaran').value.trim();
+    const konfirmasiPembayaran = document.getElementById('konfirmasiPembayaran').value.trim();
+    const buktiPembayaran = document.getElementById('buktiPembayaran').files[0];
+
+    if (namaPelangganPembayaran && detailTransaksiPembayaran && konfirmasiPembayaran && buktiPembayaran) {
+        const tbody = document.getElementById('tableKonfirmasiPesanan').querySelector('tbody');
+        const row = tbody.insertRow();
+
+        row.innerHTML = `
+            <td>${pembayaranIdCounter++}</td>
+            <td>${namaPelangganPembayaran}</td>
+            <td>${detailTransaksiPembayaran}</td>
+            <td>${konfirmasiPembayaran}</td>
+            <td><img src="${URL.createObjectURL(buktiPembayaran)}" alt="Bukti Pembayaran" width="100"></td>
+        `;
+
+        document.getElementById('formKonfirmasiPesanan').reset();
+    } else {
+        alert('Please fill in all fields!');
+    }
+}
+
+
+
+function generateLaporan() {
+    const tanggal = document.getElementById('laporanTanggal').value.trim();
+    const bulan = document.getElementById('laporanBulan').value.trim();
+    const tahun = document.getElementById('laporanTahun').value.trim();
+
+    // Mock data (ganti dengan logika data sebenarnya)
+    const laporanData = [
+        {
+            namaPelanggan: 'John Doe',
+            namaUser: 'Admin',
+            pesanan: 'Produk A x 2',
+            status: 'Lunas',
+            pembayaran: 'Cash',
+            buktiPembayaran: '', // Link bukti pembayaran
+            kategori: 'Kategori A',
+            supplier: 'Supplier A'
         }
+    ];
 
-        // Event listener untuk menyimpan user
-        userForm.addEventListener('submit', function(e) {
-            e.preventDefault();
+    const tbody = document.getElementById('tableLaporanTransaksi').querySelector('tbody');
+    tbody.innerHTML = ''; // Clear previous data
 
-            const user = {
-                id: document.getElementById('userId').value,
-                name: document.getElementById('userName').value,
-                email: document.getElementById('userEmail').value,
-                phone: document.getElementById('userPhone').value,
-                address: document.getElementById('userAddress').value,
-                status: document.getElementById('userStatus').value
-            };
+    laporanData.forEach(laporan => {
+        const row = tbody.insertRow();
 
-            if (!validateForm(user)) return; // Validasi form sebelum menyimpan
+        row.innerHTML = `
+            <td>${laporan.namaPelanggan}</td>
+            <td>${laporan.namaUser}</td>
+            <td>${laporan.pesanan}</td>
+            <td>${laporan.status}</td>
+            <td>${laporan.pembayaran}</td>
+            <td>${laporan.buktiPembayaran ? `<img src="${laporan.buktiPembayaran}" alt="Bukti Pembayaran" width="100">` : '-'}</td>
+            <td>${laporan.kategori}</td>
+            <td>${laporan.supplier}</td>
+        `;
+    });
+}
 
-            if (userForm.dataset.index !== undefined) {
-                updateUser(user, userForm.dataset.index);
-            } else {
-                saveUser(user);
-            }
-            
-            userForm.reset();
-            userForm.removeAttribute('data-index'); // Hapus data index setelah selesai
-            loadUsers();
-        });
 
-        // Fungsi untuk menyimpan user ke LocalStorage
-        function saveUser(user) {
-            let users = JSON.parse(localStorage.getItem('users')) || [];
-            users.push(user);
-            localStorage.setItem('users', JSON.stringify(users));
+
+
+
+
+function generateGrafik() {
+    const laporanData = [
+        { tanggal: '2024-01-01', jumlahPesanan: 10 },
+        { tanggal: '2024-01-02', jumlahPesanan: 15 },
+        // Mock data for grafik
+    ];
+
+    const dates = laporanData.map(d => d.tanggal);
+    const counts = laporanData.map(d => d.jumlahPesanan);
+
+    const ctx = document.getElementById('grafikLaporan').getContext('2d');
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: dates,
+            datasets: [{
+                label: 'Jumlah Pesanan',
+                data: counts,
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 2,
+                fill: false
+            }]
         }
+    });
+}
 
-        // Fungsi untuk memuat data user ke tabel
-        function loadUsers() {
-            const users = JSON.parse(localStorage.getItem('users')) || [];
-            userTable.innerHTML = ''; // Kosongkan tabel
-            users.forEach((user, index) => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${user.id}</td>
-                    <td>${user.name}</td>
-                    <td>${user.email}</td>
-                    <td>${user.phone}</td>
-                    <td>${user.address}</td>
-                    <td>${user.status}</td>
-                    <td>
-                        <button class="btn btn-warning btn-sm" onclick="editUser(${index})">Edit</button>
-                        <button class="btn btn-danger btn-sm" onclick="deleteUser(${index})">Hapus</button>
-                    </td>
-                `;
-                userTable.appendChild(row);
-            });
-        }
 
-        // Fungsi untuk menghapus user
-        function deleteUser(index) {
-            if (confirm('Apakah Anda yakin ingin menghapus user ini?')) {
-                let users = JSON.parse(localStorage.getItem('users')) || [];
-                users.splice(index, 1);
-                localStorage.setItem('users', JSON.stringify(users));
-                loadUsers();
-            }
-        }
 
-        // Fungsi untuk mengedit user
-        function editUser(index) {
-            let users = JSON.parse(localStorage.getItem('users')) || [];
-            const user = users[index];
 
-            document.getElementById('userId').value = user.id;
-            document.getElementById('userName').value = user.name;
-            document.getElementById('userEmail').value = user.email;
-            document.getElementById('userPhone').value = user.phone;
-            document.getElementById('userAddress').value = user.address;
-            document.getElementById('userStatus').value = user.status;
 
-            userForm.dataset.index = index; // Tambahkan data index untuk mengetahui user yang di-edit
-        }
 
-        // Fungsi untuk memperbarui user
-        function updateUser(user, index) {
-            let users = JSON.parse(localStorage.getItem('users')) || [];
-            users[index] = user; // Update data berdasarkan index
-            localStorage.setItem('users', JSON.stringify(users));
-        }
+let penggunaIdCounter = 1;
 
-        // Fungsi untuk mengurutkan tabel
-        function sortTable(column, order) {
-            let users = JSON.parse(localStorage.getItem('users')) || [];
-            users.sort((a, b) => {
-                if (a[column] < b[column]) return order === 'asc' ? -1 : 1;
-                if (a[column] > b[column]) return order === 'asc' ? 1 : -1;
-                return 0;
-            });
-            localStorage.setItem('users', JSON.stringify(users));
-            loadUsers();
-        }
+function addPengguna() {
+    const idPengguna = document.getElementById('idPengguna').value.trim();
+    const namaPengguna = document.getElementById('namaPengguna').value.trim();
+    const tanggalLahirPengguna = document.getElementById('tanggalLahirPengguna').value.trim();
+    const noHpPengguna = document.getElementById('noHpPengguna').value.trim();
+    const alamatPengguna = document.getElementById('alamatPengguna').value.trim();
 
-        // Fungsi untuk filter berdasarkan status
-        function filterUsers(status) {
-            const users = JSON.parse(localStorage.getItem('users')) || [];
-            userTable.innerHTML = ''; // Kosongkan tabel
-            users.filter(user => !status || user.status === status).forEach((user, index) => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${user.id}</td>
-                    <td>${user.name}</td>
-                    <td>${user.email}</td>
-                    <td>${user.phone}</td>
-                    <td>${user.address}</td>
-                    <td>${user.status}</td>
-                    <td>
-                        <button class="btn btn-warning btn-sm" onclick="editUser(${index})">Edit</button>
-                        <button class="btn btn-danger btn-sm" onclick="deleteUser(${index})">Hapus</button>
-                    </td>
-                `;
-                userTable.appendChild(row);
-            });
-        }
+    if (namaPengguna && tanggalLahirPengguna && noHpPengguna && alamatPengguna) {
+        const tbody = document.getElementById('tablePengguna').querySelector('tbody');
+        const row = tbody.insertRow();
+
+        row.innerHTML = `
+            <td>${penggunaIdCounter++}</td>
+            <td>${namaPengguna}</td>
+            <td>${tanggalLahirPengguna}</td>
+            <td>${noHpPengguna}</td>
+            <td>${alamatPengguna}</td>
+        `;
+
+        document.getElementById('formPengguna').reset();
+    } else {
+        alert('Please fill in all fields!');
+    }
+}
+
+
+
+
+
+
+
+let pesananPenggunaIdCounter = 1;
+
+function addPesananPengguna() {
+    const idPesananPelanggan = document.getElementById('idPesananPelanggan').value.trim();
+    const namaPenggunaPesanan = document.getElementById('namaPenggunaPesanan').value.trim();
+    const namaProdukPesanan = document.getElementById('namaProdukPesanan').value.trim();
+    const jumlahProdukPesanan = document.getElementById('jumlahProdukPesanan').value.trim();
+    const statusPesananPengguna = document.getElementById('statusPesananPengguna').value.trim();
+
+    if (namaPenggunaPesanan && namaProdukPesanan && jumlahProdukPesanan && statusPesananPengguna) {
+        const tbody = document.getElementById('tablePesananPengguna').querySelector('tbody');
+        const row = tbody.insertRow();
+
+        row.innerHTML = `
+            <td>${pesananPenggunaIdCounter++}</td>
+            <td>${namaPenggunaPesanan}</td>
+            <td>${namaProdukPesanan}</td>
+            <td>${jumlahProdukPesanan}</td>
+            <td>${statusPesananPengguna}</td>
+        `;
+
+        document.getElementById('formPesananPengguna').reset();
+    } else {
+        alert('Please fill in all fields!');
+    }
+}
+
+
+
+
+
+
