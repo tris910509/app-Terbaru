@@ -3,350 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manajemen User, Kategori, Supplier, dan Produk</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>E-commerce & POS App</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-    <div class="container mt-5">
-        <h2 class="text-center">Manajemen User, Kategori, Supplier, dan Produk</h2>
-        
-        <!-- Form Tambah User -->
-        
-<!-- User Form -->
-<h2>Form User</h2>
-<form id="formUser">
-    <input type="text" id="idUser" placeholder="ID User" readonly>
-    <input type="text" id="namaUser" placeholder="Nama User" required>
-    <input type="email" id="emailUser" placeholder="Email User" required>
-    <input type="tel" id="noHpUser" placeholder="No Handphone User" required>
-    <textarea id="alamatUser" placeholder="Alamat User" required></textarea>
-    <select id="statusUser">
-        <option value="">Pilih Status User</option>
-        <option value="Admin">Admin</option>
-        <option value="Kasir">Kasir</option>
-        <option value="Operator">Operator</option>
-    </select>
-    <button type="button" onclick="addUser()">Tambah User</button>
-</form>
 
-<!-- User Table -->
-<h2>Data User</h2>
-<table id="tableUser">
-    <thead>
-        <tr>
-            <th>ID User</th>
-            <th>Nama User</th>
-            <th>Email User</th>
-            <th>No Handphone</th>
-            <th>Alamat User</th>
-            <th>Status User</th>
-        </tr>
-    </thead>
-    <tbody></tbody>
-</table>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">E-commerce & POS</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="#products">E-commerce</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#pos">POS</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#reports">Reports</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- E-commerce Section -->
+<section id="products" class="container my-4">
+    <h2>Product List</h2>
+    <!-- Product list table or grid here -->
+</section>
+
+<!-- POS Section -->
+<section id="pos" class="container my-4">
+    <h2>Point of Sale</h2>
+    <!-- POS form here for selecting items, inputting payment details, etc. -->
+</section>
+
+<!-- Reports Section -->
+<section id="reports" class="container my-4">
+    <h2>Reports</h2>
+    <!-- Reports dashboard here -->
+</section>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="app.js"></script>
 
-
-
-
-    
-        <!-- Kategori Barang Form -->
-<h2>Form Kategori Barang</h2>
-<form id="formKategoriBarang">
-    <input type="text" id="idKategori" placeholder="ID Kategori" readonly>
-    <input type="text" id="namaKategori" placeholder="Nama Kategori" required>
-    <button type="button" onclick="addKategori()">Tambah Kategori</button>
-</form>
-
-<!-- Kategori Barang Table -->
-<h2>Data Kategori Barang</h2>
-<table id="tableKategoriBarang">
-    <thead>
-        <tr>
-            <th>ID Kategori</th>
-            <th>Nama Kategori</th>
-        </tr>
-    </thead>
-    <tbody></tbody>
-</table>
-
-
-        <!-- Form Tambah Supplier -->
-        <!-- Supplier Form -->
-<h2>Form Supplier</h2>
-<form id="formSupplier">
-    <input type="text" id="idSupplier" placeholder="ID Supplier" readonly>
-    <input type="text" id="namaSupplier" placeholder="Nama Supplier" required>
-    <input type="tel" id="noHpSupplier" placeholder="No Handphone Supplier" required>
-    <input type="text" id="namaPerusahaan" placeholder="Nama Perusahaan" required>
-    <textarea id="alamatSupplier" placeholder="Alamat Supplier" required></textarea>
-    <button type="button" onclick="addSupplier()">Tambah Supplier</button>
-</form>
-
-<!-- Supplier Table -->
-<h2>Data Supplier</h2>
-<table id="tableSupplier">
-    <thead>
-        <tr>
-            <th>ID Supplier</th>
-            <th>Nama Supplier</th>
-            <th>No Handphone</th>
-            <th>Nama Perusahaan</th>
-            <th>Alamat</th>
-        </tr>
-    </thead>
-    <tbody></tbody>
-</table>
-
-
-        <!-- Form Tambah Produk -->
-        <div class="card mt-4">
-        <!-- Produk Form -->
-<h2>Form Produk</h2>
-<form id="formProduk">
-    <input type="text" id="idProduk" placeholder="ID Produk" readonly>
-    <input type="text" id="namaProduk" placeholder="Nama Produk" required>
-    <input type="text" id="namaKategoriProduk" placeholder="Nama Kategori" required>
-    <input type="text" id="namaSupplierProduk" placeholder="Nama Supplier" required>
-    <input type="number" id="stokProduk" placeholder="Stok" required>
-    <input type="number" id="hargaProduk" placeholder="Harga" required>
-    <select id="statusProduk">
-        <option value="publik">Publik</option>
-        <option value="pending">Pending</option>
-        <option value="tidak_aktif">Tidak Aktif</option>
-    </select>
-    <textarea id="keteranganProduk" placeholder="Keterangan Produk"></textarea>
-    <button type="button" onclick="addProduk()">Tambah Produk</button>
-</form>
-
-<!-- Produk Table -->
-<h2>Data Produk</h2>
-<table id="tableProduk">
-    <thead>
-        <tr>
-            <th>ID Produk</th>
-            <th>Nama Produk</th>
-            <th>Kategori</th>
-            <th>Supplier</th>
-            <th>Stok</th>
-            <th>Harga</th>
-            <th>Status</th>
-            <th>Keterangan</th>
-        </tr>
-    </thead>
-    <tbody></tbody>
-</table>
-
-
-        <!-- Daftar Kategori, Supplier, dan Produk -->
-        <div class="card mt-4">
-        <!-- Transaksi Form -->
-<h2>Form Transaksi POS</h2>
-<form id="formTransaksiPOS">
-    <input type="text" id="idTransaksi" placeholder="ID Transaksi" readonly>
-    <input type="text" id="namaPelangganTransaksi" placeholder="Nama Pelanggan" required>
-    <input type="text" id="namaProdukTransaksi" placeholder="Nama Produk" required>
-    <input type="text" id="namaKategoriTransaksi" placeholder="Kategori Produk" required>
-    <input type="number" id="jumlahTransaksi" placeholder="Jumlah" required>
-    <input type="number" id="diskonTransaksi" placeholder="Diskon" min="0">
-    <input type="number" id="totalTransaksi" placeholder="Total" readonly>
-    <input type="number" id="kembalianTransaksi" placeholder="Kembalian" readonly>
-    <select id="statusTransaksi">
-        <option value="Cash">Cash</option>
-        <option value="Transfer">Transfer</option>
-        <option value="Qr">QR</option>
-    </select>
-    <button type="button" onclick="addTransaksi()">Tambah Transaksi</button>
-</form>
-
-<!-- Transaksi Table -->
-<h2>Data Transaksi POS</h2>
-<table id="tableTransaksiPOS">
-    <thead>
-        <tr>
-            <th>ID Transaksi</th>
-            <th>Nama Pelanggan</th>
-            <th>Nama Produk</th>
-            <th>Kategori</th>
-            <th>Jumlah</th>
-            <th>Diskon</th>
-            <th>Total</th>
-            <th>Kembalian</th>
-            <th>Status</th>
-        </tr>
-    </thead>
-    <tbody></tbody>
-</table>
-
-
-
-
-
-
-
-<!-- Konfirmasi Pesanan Form -->
-<h2>Konfirmasi Pesanan</h2>
-<form id="formKonfirmasiPesanan">
-    <input type="text" id="idPembayaranPesanan" placeholder="ID Pembayaran" readonly>
-    <input type="text" id="namaPelangganPembayaran" placeholder="Nama Pelanggan" required>
-    <textarea id="detailTransaksiPembayaran" placeholder="Detail Transaksi Pesanan" required></textarea>
-    <select id="konfirmasiPembayaran">
-        <option value="Lunas">Lunas</option>
-        <option value="Pending">Pending</option>
-        <option value="Batal">Batal</option>
-    </select>
-    <input type="file" id="buktiPembayaran" accept="image/png, image/jpeg" required>
-    <button type="button" onclick="konfirmasiPesanan()">Konfirmasi Pembayaran</button>
-</form>
-
-<!-- Konfirmasi Pesanan Table -->
-<h2>Data Konfirmasi Pesanan</h2>
-<table id="tableKonfirmasiPesanan">
-    <thead>
-        <tr>
-            <th>ID Pembayaran</th>
-            <th>Nama Pelanggan</th>
-            <th>Detail Transaksi</th>
-            <th>Konfirmasi Pembayaran</th>
-            <th>Bukti Pembayaran</th>
-        </tr>
-    </thead>
-    <tbody></tbody>
-</table>
-
-
-
-
-
-
-
-<!-- Laporan Transaksi Form -->
-<h2>Laporan Transaksi</h2>
-<form id="formLaporanTransaksi">
-    <input type="date" id="laporanTanggal" placeholder="Pilih Tanggal" required>
-    <select id="laporanBulan">
-        <option value="">Pilih Bulan</option>
-        <option value="1">Januari</option>
-        <option value="2">Februari</option>
-        <!-- Tambahkan bulan lainnya -->
-    </select>
-    <input type="number" id="laporanTahun" placeholder="Tahun" required>
-    <button type="button" onclick="generateLaporan()">Generate Laporan</button>
-</form>
-
-<!-- Laporan Transaksi Table -->
-<h2>Detail Laporan Transaksi</h2>
-<table id="tableLaporanTransaksi">
-    <thead>
-        <tr>
-            <th>Nama Pelanggan</th>
-            <th>Nama User</th>
-            <th>Pesanan</th>
-            <th>Status</th>
-            <th>Pembayaran</th>
-            <th>Bukti Pembayaran</th>
-            <th>Kategori</th>
-            <th>Supplier</th>
-        </tr>
-    </thead>
-    <tbody></tbody>
-</table>
-
-
-            
-<h2>Grafik Laporan Transaksi</h2>
-<button type="button" onclick="generateGrafik()">Generate Grafik</button>
-
-<!-- Grafik Area -->
-<div id="grafikLaporan"></div>
-
-
-
-
-
-            
-
-<!-- Pesanan Pengguna Form -->
-<h2>Form Pesanan Pengguna</h2>
-<form id="formPesananPengguna">
-    <input type="text" id="idPesananPelanggan" placeholder="ID Pesan" readonly>
-    <input type="text" id="namaPenggunaPesanan" placeholder="Nama Pengguna" required>
-    <input type="text" id="namaProdukPesanan" placeholder="Nama Produk" required>
-    <input type="number" id="jumlahProdukPesanan" placeholder="Jumlah Produk" required>
-    <select id="statusPesananPengguna">
-        <option value="Pending">Pending</option>
-        <option value="Lunas">Lunas</option>
-        <option value="Batal">Batal</option>
-    </select>
-    <button type="button" onclick="addPesananPengguna()">Tambah Pesanan</button>
-</form>
-
-<!-- Pesanan Pengguna Table -->
-<h2>Data Pesanan Pengguna</h2>
-<table id="tablePesananPengguna">
-    <thead>
-        <tr>
-            <th>ID Pesanan</th>
-            <th>Nama Pengguna</th>
-            <th>Nama Produk</th>
-            <th>Jumlah Produk</th>
-            <th>Status Pesanan</th>
-        </tr>
-    </thead>
-    <tbody></tbody>
-</table>
-
-
-
-
-            
-
-
-
-
-
-       <!-- Pengguna Form -->
-<h2>Form Pengguna</h2>
-<form id="formPengguna">
-    <input type="text" id="idPengguna" placeholder="ID Pengguna" readonly>
-    <input type="text" id="namaPengguna" placeholder="Nama Pengguna" required>
-    <input type="date" id="tanggalLahirPengguna" placeholder="Tanggal Lahir" required>
-    <input type="tel" id="noHpPengguna" placeholder="No Handphone" required>
-    <textarea id="alamatPengguna" placeholder="Alamat Pengguna" required></textarea>
-    <button type="button" onclick="addPengguna()">Tambah Pengguna</button>
-</form>
-
-<!-- Pengguna Table -->
-<h2>Data Pengguna</h2>
-<table id="tablePengguna">
-    <thead>
-        <tr>
-            <th>ID Pengguna</th>
-            <th>Nama Pengguna</th>
-            <th>Tanggal Lahir</th>
-            <th>No Handphone</th>
-            <th>Alamat</th>
-        </tr>
-    </thead>
-    <tbody></tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-            
-
-
-
-
-
-            
-
-    <script src="script.js"></script>
 </body>
 </html>
