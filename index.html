@@ -11,499 +11,342 @@
         <h2 class="text-center">Manajemen User, Kategori, Supplier, dan Produk</h2>
         
         <!-- Form Tambah User -->
-        <div class="card mt-4">
-            <div class="card-header bg-primary text-white">Form Tambah User</div>
-            <div class="card-body">
-                <form id="userForm">
-                    <!-- User fields -->
-                    <div class="mb-3">
-                        <label for="userId" class="form-label">ID User</label>
-                        <input type="text" class="form-control" id="userId" placeholder="Masukkan ID User" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="userName" class="form-label">Nama User</label>
-                        <input type="text" class="form-control" id="userName" placeholder="Masukkan Nama User" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="userEmail" class="form-label">Email User</label>
-                        <input type="email" class="form-control" id="userEmail" placeholder="Masukkan Email User" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="userPhone" class="form-label">No Handphone User</label>
-                        <input type="text" class="form-control" id="userPhone" placeholder="Masukkan No Handphone" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="userAddress" class="form-label">Alamat User</label>
-                        <textarea class="form-control" id="userAddress" rows="3" placeholder="Masukkan Alamat" required></textarea>
-                    </div>
-                    <div class="mb-3">
-                        <label for="userStatus" class="form-label">Status User</label>
-                        <select class="form-select" id="userStatus" required>
-                            <option value="Admin">Admin</option>
-                            <option value="Kasir">Kasir</option>
-                            <option value="Operator">Operator</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn btn-success">Simpan</button>
-                </form>
-            </div>
-        </div>
+        
+<!-- User Form -->
+<h2>Form User</h2>
+<form id="formUser">
+    <input type="text" id="idUser" placeholder="ID User" readonly>
+    <input type="text" id="namaUser" placeholder="Nama User" required>
+    <input type="email" id="emailUser" placeholder="Email User" required>
+    <input type="tel" id="noHpUser" placeholder="No Handphone User" required>
+    <textarea id="alamatUser" placeholder="Alamat User" required></textarea>
+    <select id="statusUser">
+        <option value="">Pilih Status User</option>
+        <option value="Admin">Admin</option>
+        <option value="Kasir">Kasir</option>
+        <option value="Operator">Operator</option>
+    </select>
+    <button type="button" onclick="addUser()">Tambah User</button>
+</form>
 
-        <!-- Form Tambah Kategori -->
-        <div class="card mt-4">
-            <div class="card-header bg-primary text-white">Form Tambah Kategori</div>
-            <div class="card-body">
-                <form id="categoryForm">
-                    <div class="mb-3">
-                        <label for="categoryId" class="form-label">ID Kategori</label>
-                        <input type="text" class="form-control" id="categoryId" placeholder="Masukkan ID Kategori" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="categoryName" class="form-label">Nama Kategori</label>
-                        <input type="text" class="form-control" id="categoryName" placeholder="Masukkan Nama Kategori" required>
-                    </div>
-                    <button type="submit" class="btn btn-success">Simpan</button>
-                </form>
-            </div>
-        </div>
+<!-- User Table -->
+<h2>Data User</h2>
+<table id="tableUser">
+    <thead>
+        <tr>
+            <th>ID User</th>
+            <th>Nama User</th>
+            <th>Email User</th>
+            <th>No Handphone</th>
+            <th>Alamat User</th>
+            <th>Status User</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+
+
+
+    
+        <!-- Kategori Barang Form -->
+<h2>Form Kategori Barang</h2>
+<form id="formKategoriBarang">
+    <input type="text" id="idKategori" placeholder="ID Kategori" readonly>
+    <input type="text" id="namaKategori" placeholder="Nama Kategori" required>
+    <button type="button" onclick="addKategori()">Tambah Kategori</button>
+</form>
+
+<!-- Kategori Barang Table -->
+<h2>Data Kategori Barang</h2>
+<table id="tableKategoriBarang">
+    <thead>
+        <tr>
+            <th>ID Kategori</th>
+            <th>Nama Kategori</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
 
         <!-- Form Tambah Supplier -->
-        <div class="card mt-4">
-            <div class="card-header bg-primary text-white">Form Tambah Supplier</div>
-            <div class="card-body">
-                <form id="supplierForm">
-                    <div class="mb-3">
-                        <label for="supplierId" class="form-label">ID Supplier</label>
-                        <input type="text" class="form-control" id="supplierId" placeholder="Masukkan ID Supplier" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="supplierName" class="form-label">Nama Supplier</label>
-                        <input type="text" class="form-control" id="supplierName" placeholder="Masukkan Nama Supplier" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="supplierPhone" class="form-label">No Handphone Supplier</label>
-                        <input type="text" class="form-control" id="supplierPhone" placeholder="Masukkan No Handphone" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="supplierCompany" class="form-label">Nama Perusahaan</label>
-                        <input type="text" class="form-control" id="supplierCompany" placeholder="Masukkan Nama Perusahaan" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="supplierAddress" class="form-label">Alamat Supplier</label>
-                        <textarea class="form-control" id="supplierAddress" rows="3" placeholder="Masukkan Alamat Supplier" required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-success">Simpan</button>
-                </form>
-            </div>
-        </div>
+        <!-- Supplier Form -->
+<h2>Form Supplier</h2>
+<form id="formSupplier">
+    <input type="text" id="idSupplier" placeholder="ID Supplier" readonly>
+    <input type="text" id="namaSupplier" placeholder="Nama Supplier" required>
+    <input type="tel" id="noHpSupplier" placeholder="No Handphone Supplier" required>
+    <input type="text" id="namaPerusahaan" placeholder="Nama Perusahaan" required>
+    <textarea id="alamatSupplier" placeholder="Alamat Supplier" required></textarea>
+    <button type="button" onclick="addSupplier()">Tambah Supplier</button>
+</form>
+
+<!-- Supplier Table -->
+<h2>Data Supplier</h2>
+<table id="tableSupplier">
+    <thead>
+        <tr>
+            <th>ID Supplier</th>
+            <th>Nama Supplier</th>
+            <th>No Handphone</th>
+            <th>Nama Perusahaan</th>
+            <th>Alamat</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
 
         <!-- Form Tambah Produk -->
         <div class="card mt-4">
-            <div class="card-header bg-primary text-white">Form Tambah Produk</div>
-            <div class="card-body">
-                <form id="productForm">
-                    <div class="mb-3">
-                        <label for="productId" class="form-label">ID Produk</label>
-                        <input type="text" class="form-control" id="productId" placeholder="Masukkan ID Produk" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="productName" class="form-label">Nama Produk</label>
-                        <input type="text" class="form-control" id="productName" placeholder="Masukkan Nama Produk" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="categorySelect" class="form-label">Kategori Barang</label>
-                        <select class="form-select" id="categorySelect" required></select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="supplierSelect" class="form-label">Supplier</label>
-                        <select class="form-select" id="supplierSelect" required></select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="productStock" class="form-label">Stok</label>
-                        <input type="number" class="form-control" id="productStock" placeholder="Masukkan Stok Produk" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="productPrice" class="form-label">Harga</label>
-                        <input type="number" class="form-control" id="productPrice" placeholder="Masukkan Harga Produk" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="productStatus" class="form-label">Status</label>
-                        <select class="form-select" id="productStatus" required>
-                            <option value="Publik">Publik</option>
-                            <option value="Pending">Pending</option>
-                            <option value="Tidak Aktif">Tidak Aktif</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="productDescription" class="form-label">Keterangan Produk</label>
-                        <textarea class="form-control" id="productDescription" rows="3" placeholder="Masukkan Keterangan Produk"></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-success">Simpan</button>
-                </form>
-            </div>
-        </div>
+        <!-- Produk Form -->
+<h2>Form Produk</h2>
+<form id="formProduk">
+    <input type="text" id="idProduk" placeholder="ID Produk" readonly>
+    <input type="text" id="namaProduk" placeholder="Nama Produk" required>
+    <input type="text" id="namaKategoriProduk" placeholder="Nama Kategori" required>
+    <input type="text" id="namaSupplierProduk" placeholder="Nama Supplier" required>
+    <input type="number" id="stokProduk" placeholder="Stok" required>
+    <input type="number" id="hargaProduk" placeholder="Harga" required>
+    <select id="statusProduk">
+        <option value="publik">Publik</option>
+        <option value="pending">Pending</option>
+        <option value="tidak_aktif">Tidak Aktif</option>
+    </select>
+    <textarea id="keteranganProduk" placeholder="Keterangan Produk"></textarea>
+    <button type="button" onclick="addProduk()">Tambah Produk</button>
+</form>
+
+<!-- Produk Table -->
+<h2>Data Produk</h2>
+<table id="tableProduk">
+    <thead>
+        <tr>
+            <th>ID Produk</th>
+            <th>Nama Produk</th>
+            <th>Kategori</th>
+            <th>Supplier</th>
+            <th>Stok</th>
+            <th>Harga</th>
+            <th>Status</th>
+            <th>Keterangan</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
 
         <!-- Daftar Kategori, Supplier, dan Produk -->
         <div class="card mt-4">
-            <div class="card-header bg-secondary text-white">Daftar Kategori, Supplier, dan Produk</div>
-            <div class="card-body">
-                <!-- Kategori -->
-                <h5 class="mb-3">Daftar Kategori</h5>
-                <table class="table table-bordered" id="categoryTable">
-                    <thead>
-                        <tr>
-                            <th>ID Kategori</th>
-                            <th>Nama Kategori</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
+        <!-- Transaksi Form -->
+<h2>Form Transaksi POS</h2>
+<form id="formTransaksiPOS">
+    <input type="text" id="idTransaksi" placeholder="ID Transaksi" readonly>
+    <input type="text" id="namaPelangganTransaksi" placeholder="Nama Pelanggan" required>
+    <input type="text" id="namaProdukTransaksi" placeholder="Nama Produk" required>
+    <input type="text" id="namaKategoriTransaksi" placeholder="Kategori Produk" required>
+    <input type="number" id="jumlahTransaksi" placeholder="Jumlah" required>
+    <input type="number" id="diskonTransaksi" placeholder="Diskon" min="0">
+    <input type="number" id="totalTransaksi" placeholder="Total" readonly>
+    <input type="number" id="kembalianTransaksi" placeholder="Kembalian" readonly>
+    <select id="statusTransaksi">
+        <option value="Cash">Cash</option>
+        <option value="Transfer">Transfer</option>
+        <option value="Qr">QR</option>
+    </select>
+    <button type="button" onclick="addTransaksi()">Tambah Transaksi</button>
+</form>
 
-                <!-- Supplier -->
-                <h5 class="mt-4 mb-3">Daftar Supplier</h5>
-                <table class="table table-bordered" id="supplierTable">
-                    <thead>
-                        <tr>
-                            <th>ID Supplier</th>
-                            <th>Nama Supplier</th>
-                            <th>No Handphone</th>
-                            <th>Nama Perusahaan</th>
-                            <th>Alamat</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
+<!-- Transaksi Table -->
+<h2>Data Transaksi POS</h2>
+<table id="tableTransaksiPOS">
+    <thead>
+        <tr>
+            <th>ID Transaksi</th>
+            <th>Nama Pelanggan</th>
+            <th>Nama Produk</th>
+            <th>Kategori</th>
+            <th>Jumlah</th>
+            <th>Diskon</th>
+            <th>Total</th>
+            <th>Kembalian</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
 
-                <!-- Produk -->
-                <h5 class="mt-4 mb-3">Daftar Produk</h5>
-                <table class="table table-bordered" id="productTable">
-                    <thead>
-                        <tr>
-                            <th>ID Produk</th>
-                            <th>Nama Produk</th>
-                            <th>Kategori</th>
-                            <th>Supplier</th>
-                            <th>Stok</th>
-                            <th>Harga</th>
-                            <th>Status</th>
-                            <th>Keterangan Produk</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-            </div>
-        </div>
-    </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            loadUsers();
-            loadCategories();
-            loadSuppliers();
-            loadProducts();
-        });
 
-        const userForm = document.getElementById('userForm');
-        const categoryForm = document.getElementById('categoryForm');
-        const supplierForm = document.getElementById('supplierForm');
-        const productForm = document.getElementById('productForm');
 
-        const userTable = document.getElementById('userTable').querySelector('tbody');
-        const categoryTable = document.getElementById('categoryTable').querySelector('tbody');
-        const supplierTable = document.getElementById('supplierTable').querySelector('tbody');
-        const productTable = document.getElementById('productTable').querySelector('tbody');
 
-        // Fungsi untuk menyimpan user ke LocalStorage
-        function saveUser(user) {
-            let users = JSON.parse(localStorage.getItem('users')) || [];
-            users.push(user);
-            localStorage.setItem('users', JSON.stringify(users));
-        }
 
-        // Fungsi untuk memuat data user ke tabel
-        function loadUsers() {
-            const users = JSON.parse(localStorage.getItem('users')) || [];
-            userTable.innerHTML = ''; // Kosongkan tabel
-            users.forEach((user, index) => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${user.id}</td>
-                    <td>${user.name}</td>
-                    <td>${user.email}</td>
-                    <td>${user.phone}</td>
-                    <td>${user.address}</td>
-                    <td>${user.status}</td>
-                    <td>
-                        <button class="btn btn-warning btn-sm" onclick="editUser(${index})">Edit</button>
-                        <button class="btn btn-danger btn-sm" onclick="deleteUser(${index})">Hapus</button>
-                    </td>
-                `;
-                userTable.appendChild(row);
-            });
-        }
 
-        // Fungsi untuk menyimpan kategori ke LocalStorage
-        function saveCategory(category) {
-            let categories = JSON.parse(localStorage.getItem('categories')) || [];
-            categories.push(category);
-            localStorage.setItem('categories', JSON.stringify(categories));
-        }
+<!-- Konfirmasi Pesanan Form -->
+<h2>Konfirmasi Pesanan</h2>
+<form id="formKonfirmasiPesanan">
+    <input type="text" id="idPembayaranPesanan" placeholder="ID Pembayaran" readonly>
+    <input type="text" id="namaPelangganPembayaran" placeholder="Nama Pelanggan" required>
+    <textarea id="detailTransaksiPembayaran" placeholder="Detail Transaksi Pesanan" required></textarea>
+    <select id="konfirmasiPembayaran">
+        <option value="Lunas">Lunas</option>
+        <option value="Pending">Pending</option>
+        <option value="Batal">Batal</option>
+    </select>
+    <input type="file" id="buktiPembayaran" accept="image/png, image/jpeg" required>
+    <button type="button" onclick="konfirmasiPesanan()">Konfirmasi Pembayaran</button>
+</form>
 
-        // Fungsi untuk memuat data kategori ke tabel
-        function loadCategories() {
-            const categories = JSON.parse(localStorage.getItem('categories')) || [];
-            categoryTable.innerHTML = '';
-            categories.forEach((category, index) => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${category.id}</td>
-                    <td>${category.name}</td>
-                    <td>
-                        <button class="btn btn-warning btn-sm" onclick="editCategory(${index})">Edit</button>
-                        <button class="btn btn-danger btn-sm" onclick="deleteCategory(${index})">Hapus</button>
-                    </td>
-                `;
-                categoryTable.appendChild(row);
-            });
+<!-- Konfirmasi Pesanan Table -->
+<h2>Data Konfirmasi Pesanan</h2>
+<table id="tableKonfirmasiPesanan">
+    <thead>
+        <tr>
+            <th>ID Pembayaran</th>
+            <th>Nama Pelanggan</th>
+            <th>Detail Transaksi</th>
+            <th>Konfirmasi Pembayaran</th>
+            <th>Bukti Pembayaran</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
 
-            // Populate category dropdown in product form
-            const categorySelect = document.getElementById('categorySelect');
-            categories.forEach(category => {
-                const option = document.createElement('option');
-                option.value = category.id;
-                option.textContent = category.name;
-                categorySelect.appendChild(option);
-            });
-        }
 
-        // Fungsi untuk menyimpan supplier ke LocalStorage
-        function saveSupplier(supplier) {
-            let suppliers = JSON.parse(localStorage.getItem('suppliers')) || [];
-            suppliers.push(supplier);
-            localStorage.setItem('suppliers', JSON.stringify(suppliers));
-        }
 
-        // Fungsi untuk memuat data supplier ke tabel
-        function loadSuppliers() {
-            const suppliers = JSON.parse(localStorage.getItem('suppliers')) || [];
-            supplierTable.innerHTML = '';
-            suppliers.forEach((supplier, index) => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${supplier.id}</td>
-                    <td>${supplier.name}</td>
-                    <td>${supplier.phone}</td>
-                    <td>${supplier.company}</td>
-                    <td>${supplier.address}</td>
-                    <td>
-                        <button class="btn btn-warning btn-sm" onclick="editSupplier(${index})">Edit</button>
-                        <button class="btn btn-danger btn-sm" onclick="deleteSupplier(${index})">Hapus</button>
-                    </td>
-                `;
-                supplierTable.appendChild(row);
-            });
 
-            // Populate supplier dropdown in product form
-            const supplierSelect = document.getElementById('supplierSelect');
-            suppliers.forEach(supplier => {
-                const option = document.createElement('option');
-                option.value = supplier.id;
-                option.textContent = supplier.name;
-                supplierSelect.appendChild(option);
-            });
-        }
 
-        // Fungsi untuk menyimpan produk ke LocalStorage
-        function saveProduct(product) {
-            let products = JSON.parse(localStorage.getItem('products')) || [];
-            products.push(product);
-            localStorage.setItem('products', JSON.stringify(products));
-        }
 
-        // Fungsi untuk memuat data produk ke tabel
-        function loadProducts() {
-            const products = JSON.parse(localStorage.getItem('products')) || [];
-            productTable.innerHTML = '';
-            products.forEach((product, index) => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${product.id}</td>
-                    <td>${product.name}</td>
-                    <td>${product.category}</td>
-                    <td>${product.supplier}</td>
-                    <td>${product.stock}</td>
-                    <td>${product.price}</td>
-                    <td>${product.status}</td>
-                    <td>${product.description}</td>
-                    <td>
-                        <button class="btn btn-warning btn-sm" onclick="editProduct(${index})">Edit</button>
-                        <button class="btn btn-danger btn-sm" onclick="deleteProduct(${index})">Hapus</button>
-                    </td>
-                `;
-                productTable.appendChild(row);
-            });
-        }
 
-        // Fungsi untuk menghapus user
-        function deleteUser(index) {
-            let users = JSON.parse(localStorage.getItem('users')) || [];
-            users.splice(index, 1);
-            localStorage.setItem('users', JSON.stringify(users));
-            loadUsers();
-        }
+<!-- Laporan Transaksi Form -->
+<h2>Laporan Transaksi</h2>
+<form id="formLaporanTransaksi">
+    <input type="date" id="laporanTanggal" placeholder="Pilih Tanggal" required>
+    <select id="laporanBulan">
+        <option value="">Pilih Bulan</option>
+        <option value="1">Januari</option>
+        <option value="2">Februari</option>
+        <!-- Tambahkan bulan lainnya -->
+    </select>
+    <input type="number" id="laporanTahun" placeholder="Tahun" required>
+    <button type="button" onclick="generateLaporan()">Generate Laporan</button>
+</form>
 
-        // Fungsi untuk menghapus kategori
-        function deleteCategory(index) {
-            let categories = JSON.parse(localStorage.getItem('categories')) || [];
-            categories.splice(index, 1);
-            localStorage.setItem('categories', JSON.stringify(categories));
-            loadCategories();
-        }
+<!-- Laporan Transaksi Table -->
+<h2>Detail Laporan Transaksi</h2>
+<table id="tableLaporanTransaksi">
+    <thead>
+        <tr>
+            <th>Nama Pelanggan</th>
+            <th>Nama User</th>
+            <th>Pesanan</th>
+            <th>Status</th>
+            <th>Pembayaran</th>
+            <th>Bukti Pembayaran</th>
+            <th>Kategori</th>
+            <th>Supplier</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
 
-        // Fungsi untuk menghapus supplier
-        function deleteSupplier(index) {
-            let suppliers = JSON.parse(localStorage.getItem('suppliers')) || [];
-            suppliers.splice(index, 1);
-            localStorage.setItem('suppliers', JSON.stringify(suppliers));
-            loadSuppliers();
-        }
 
-        // Fungsi untuk menghapus produk
-        function deleteProduct(index) {
-            let products = JSON.parse(localStorage.getItem('products')) || [];
-            products.splice(index, 1);
-            localStorage.setItem('products', JSON.stringify(products));
-            loadProducts();
-        }
+            
+<h2>Grafik Laporan Transaksi</h2>
+<button type="button" onclick="generateGrafik()">Generate Grafik</button>
 
-        // Fungsi untuk edit user
-        function editUser(index) {
-            let users = JSON.parse(localStorage.getItem('users')) || [];
-            const user = users[index];
+<!-- Grafik Area -->
+<div id="grafikLaporan"></div>
 
-            document.getElementById('userId').value = user.id;
-            document.getElementById('userName').value = user.name;
-            document.getElementById('userEmail').value = user.email;
-            document.getElementById('userPhone').value = user.phone;
-            document.getElementById('userAddress').value = user.address;
-            document.getElementById('userStatus').value = user.status;
 
-            deleteUser(index); // Hapus data sementara untuk diupdate
-        }
 
-        // Fungsi untuk edit kategori
-        function editCategory(index) {
-            let categories = JSON.parse(localStorage.getItem('categories')) || [];
-            const category = categories[index];
 
-            document.getElementById('categoryId').value = category.id;
-            document.getElementById('categoryName').value = category.name;
 
-            deleteCategory(index); // Hapus data sementara untuk diupdate
-        }
+            
 
-        // Fungsi untuk edit supplier
-        function editSupplier(index) {
-            let suppliers = JSON.parse(localStorage.getItem('suppliers')) || [];
-            const supplier = suppliers[index];
+<!-- Pesanan Pengguna Form -->
+<h2>Form Pesanan Pengguna</h2>
+<form id="formPesananPengguna">
+    <input type="text" id="idPesananPelanggan" placeholder="ID Pesan" readonly>
+    <input type="text" id="namaPenggunaPesanan" placeholder="Nama Pengguna" required>
+    <input type="text" id="namaProdukPesanan" placeholder="Nama Produk" required>
+    <input type="number" id="jumlahProdukPesanan" placeholder="Jumlah Produk" required>
+    <select id="statusPesananPengguna">
+        <option value="Pending">Pending</option>
+        <option value="Lunas">Lunas</option>
+        <option value="Batal">Batal</option>
+    </select>
+    <button type="button" onclick="addPesananPengguna()">Tambah Pesanan</button>
+</form>
 
-            document.getElementById('supplierId').value = supplier.id;
-            document.getElementById('supplierName').value = supplier.name;
-            document.getElementById('supplierPhone').value = supplier.phone;
-            document.getElementById('supplierCompany').value = supplier.company;
-            document.getElementById('supplierAddress').value = supplier.address;
+<!-- Pesanan Pengguna Table -->
+<h2>Data Pesanan Pengguna</h2>
+<table id="tablePesananPengguna">
+    <thead>
+        <tr>
+            <th>ID Pesanan</th>
+            <th>Nama Pengguna</th>
+            <th>Nama Produk</th>
+            <th>Jumlah Produk</th>
+            <th>Status Pesanan</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
 
-            deleteSupplier(index); // Hapus data sementara untuk diupdate
-        }
 
-        // Fungsi untuk edit produk
-        function editProduct(index) {
-            let products = JSON.parse(localStorage.getItem('products')) || [];
-            const product = products[index];
 
-            document.getElementById('productId').value = product.id;
-            document.getElementById('productName').value = product.name;
-            document.getElementById('categorySelect').value = product.category;
-            document.getElementById('supplierSelect').value = product.supplier;
-            document.getElementById('productStock').value = product.stock;
-            document.getElementById('productPrice').value = product.price;
-            document.getElementById('productStatus').value = product.status;
-            document.getElementById('productDescription').value = product.description;
 
-            deleteProduct(index); // Hapus data sementara untuk diupdate
-        }
+            
 
-        // Fungsi untuk menyimpan data user saat submit
-        userForm.addEventListener('submit', function (e) {
-            e.preventDefault();
 
-            const user = {
-                id: document.getElementById('userId').value,
-                name: document.getElementById('userName').value,
-                email: document.getElementById('userEmail').value,
-                phone: document.getElementById('userPhone').value,
-                address: document.getElementById('userAddress').value,
-                status: document.getElementById('userStatus').value
-            };
 
-            saveUser(user);
-            userForm.reset();
-            loadUsers();
-        });
 
-        // Fungsi untuk menyimpan data kategori saat submit
-        categoryForm.addEventListener('submit', function (e) {
-            e.preventDefault();
 
-            const category = {
-                id: document.getElementById('categoryId').value,
-                name: document.getElementById('categoryName').value
-            };
+       <!-- Pengguna Form -->
+<h2>Form Pengguna</h2>
+<form id="formPengguna">
+    <input type="text" id="idPengguna" placeholder="ID Pengguna" readonly>
+    <input type="text" id="namaPengguna" placeholder="Nama Pengguna" required>
+    <input type="date" id="tanggalLahirPengguna" placeholder="Tanggal Lahir" required>
+    <input type="tel" id="noHpPengguna" placeholder="No Handphone" required>
+    <textarea id="alamatPengguna" placeholder="Alamat Pengguna" required></textarea>
+    <button type="button" onclick="addPengguna()">Tambah Pengguna</button>
+</form>
 
-            saveCategory(category);
-            categoryForm.reset();
-            loadCategories();
-        });
+<!-- Pengguna Table -->
+<h2>Data Pengguna</h2>
+<table id="tablePengguna">
+    <thead>
+        <tr>
+            <th>ID Pengguna</th>
+            <th>Nama Pengguna</th>
+            <th>Tanggal Lahir</th>
+            <th>No Handphone</th>
+            <th>Alamat</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
 
-        // Fungsi untuk menyimpan data supplier saat submit
-        supplierForm.addEventListener('submit', function (e) {
-            e.preventDefault();
 
-            const supplier = {
-                id: document.getElementById('supplierId').value,
-                name: document.getElementById('supplierName').value,
-                phone: document.getElementById('supplierPhone').value,
-                company: document.getElementById('supplierCompany').value,
-                address: document.getElementById('supplierAddress').value
-            };
 
-            saveSupplier(supplier);
-            supplierForm.reset();
-            loadSuppliers();
-        });
 
-        // Fungsi untuk menyimpan data produk saat submit
-        productForm.addEventListener('submit', function (e) {
-            e.preventDefault();
 
-            const product = {
-                id: document.getElementById('productId').value,
-                name: document.getElementById('productName').value,
-                category: document.getElementById('categorySelect').value,
-                supplier: document.getElementById('supplierSelect').value,
-                stock: document.getElementById('productStock').value,
-                price: document.getElementById('productPrice').value,
-                status: document.getElementById('productStatus').value,
-                description: document.getElementById('productDescription').value
-            };
 
-            saveProduct(product);
-            productForm.reset();
-            loadProducts();
-        });
-    </script>
+
+
+
+
+            
+
+
+
+
+
+            
+
+    <script></script>
 </body>
 </html>
