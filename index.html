@@ -18,87 +18,100 @@
     <div class="container">
         <h1 class="mt-5">POS App</h1>
 
-        <div class="form-group">
-            <label for="productName">Product Name</label>
-            <input type="text" id="productName" class="form-control" placeholder="Enter Product Name">
+        <!-- Form to Add Product -->
+        <div class="mb-4">
+            <h3 class="mt-4">Add Product</h3>
+            <div class="form-group">
+                <label for="productName">Product Name</label>
+                <input type="text" id="productName" class="form-control" placeholder="Enter Product Name">
+            </div>
+
+            <div class="form-group">
+                <label for="productPrice">Product Price</label>
+                <input type="number" id="productPrice" class="form-control" placeholder="Enter Product Price">
+            </div>
+
+            <div class="form-group">
+                <label for="productCategory">Category</label>
+                <select id="productCategory" class="form-control">
+                    <option value="">Select Category</option>
+                    <option value="Electronics">Electronics</option>
+                    <option value="Clothing">Clothing</option>
+                    <option value="Groceries">Groceries</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="productSupplier">Supplier</label>
+                <input type="text" id="productSupplier" class="form-control" placeholder="Enter Supplier Name">
+            </div>
+
+            <div class="form-group">
+                <label for="productStock">Stock</label>
+                <input type="number" id="productStock" class="form-control" placeholder="Enter Product Stock">
+            </div>
+
+            <div class="form-group">
+                <label for="productStatus">Status</label>
+                <select id="productStatus" class="form-control">
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                </select>
+            </div>
+
+            <button id="addProductBtn" class="btn btn-primary">Add Product</button>
         </div>
 
-        <div class="form-group">
-            <label for="productPrice">Product Price</label>
-            <input type="number" id="productPrice" class="form-control" placeholder="Enter Product Price">
-        </div>
-
-        <div class="form-group">
-            <label for="productCategory">Category</label>
-            <select id="productCategory" class="form-control">
-                <option value="">Select Category</option>
-                <option value="Electronics">Electronics</option>
-                <option value="Clothing">Clothing</option>
-                <option value="Groceries">Groceries</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="productSupplier">Supplier</label>
-            <input type="text" id="productSupplier" class="form-control" placeholder="Enter Supplier Name">
-        </div>
-
-        <div class="form-group">
-            <label for="productStock">Stock</label>
-            <input type="number" id="productStock" class="form-control" placeholder="Enter Product Stock">
-        </div>
-
-        <div class="form-group">
-            <label for="productStatus">Status</label>
-            <select id="productStatus" class="form-control">
-                <option value="active">Active</option>
-                <option value="inactive">Inactive</option>
-            </select>
-        </div>
-
-        <button id="addProductBtn" class="btn btn-primary">Add Product</button>
-
+        <!-- Product List -->
         <h3 class="mt-4">Products List</h3>
         <ul id="productList" class="list-group product-list"></ul>
 
-        <h3 class="mt-5">Transactions</h3>
-        
-        <div class="form-group">
-            <label for="transactionProduct">Select Product</label>
-            <select id="transactionProduct" class="form-control">
-                <option value="">Select Product</option>
-            </select>
+        <!-- Form to Add Transaction -->
+        <div class="mt-5">
+            <h3>Make a Transaction</h3>
+            <div class="form-group">
+                <label for="transactionProduct">Select Product</label>
+                <select id="transactionProduct" class="form-control">
+                    <option value="">Select Product</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="transactionQuantity">Quantity</label>
+                <input type="number" id="transactionQuantity" class="form-control" placeholder="Enter Quantity">
+            </div>
+
+            <div class="form-group">
+                <label for="transactionDiscount">Discount (%)</label>
+                <input type="number" id="transactionDiscount" class="form-control" placeholder="Enter Discount">
+            </div>
+
+            <div class="form-group">
+                <label for="transactionPaymentStatus">Payment Status</label>
+                <select id="transactionPaymentStatus" class="form-control">
+                    <option value="paid">Paid</option>
+                    <option value="unpaid">Unpaid</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="transactionPaymentMethod">Payment Method</label>
+                <select id="transactionPaymentMethod" class="form-control">
+                    <option value="cash">Cash</option>
+                    <option value="credit">Credit Card</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="transactionTotal">Total Amount</label>
+                <input type="text" id="transactionTotal" class="form-control" readonly>
+            </div>
+
+            <button id="addTransactionBtn" class="btn btn-primary">Add Transaction</button>
         </div>
 
-        <div class="form-group">
-            <label for="transactionQuantity">Quantity</label>
-            <input type="number" id="transactionQuantity" class="form-control" placeholder="Enter Quantity">
-        </div>
-
-        <div class="form-group">
-            <label for="transactionDiscount">Discount (%)</label>
-            <input type="number" id="transactionDiscount" class="form-control" placeholder="Enter Discount">
-        </div>
-
-        <div class="form-group">
-            <label for="transactionPaymentStatus">Payment Status</label>
-            <select id="transactionPaymentStatus" class="form-control">
-                <option value="paid">Paid</option>
-                <option value="unpaid">Unpaid</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="transactionPaymentMethod">Payment Method</label>
-            <select id="transactionPaymentMethod" class="form-control">
-                <option value="cash">Cash</option>
-                <option value="credit">Credit Card</option>
-                <option value="other">Other</option>
-            </select>
-        </div>
-
-        <button id="addTransactionBtn" class="btn btn-primary">Add Transaction</button>
-
+        <!-- Transaction List -->
         <h3 class="mt-4 transaction-list">Transaction List</h3>
         <ul id="transactionList" class="list-group product-list"></ul>
     </div>
@@ -181,24 +194,26 @@
                             quantity: transactionQuantity,
                             price: product.price,
                             discount: transactionDiscount,
-                            totalPrice: finalPrice,
+                            totalPrice: finalPrice.toFixed(2),
                             paymentStatus: transactionPaymentStatus,
                             paymentMethod: transactionPaymentMethod
                         };
 
                         transactions.push(transaction);
 
+                        // Deduct stock from the product
                         product.stock -= transactionQuantity;
 
                         const transactionItem = document.createElement('li');
                         transactionItem.className = 'list-group-item d-flex justify-content-between align-items-center';
                         transactionItem.innerHTML = `
-                            ${transactionProductName} - $${transaction.price.toFixed(2)} x ${transaction.quantity} = $${transaction.totalPrice.toFixed(2)} 
+                            ${transactionProductName} - $${transaction.price.toFixed(2)} x ${transaction.quantity} = $${transaction.totalPrice} 
                             <br> Discount: ${transaction.discount}% - Payment Status: ${transaction.paymentStatus} - Payment Method: ${transaction.paymentMethod}
                             <button class="btn btn-danger btn-sm ml-2 removeTransactionBtn">Remove</button>
                         `;
                         transactionList.appendChild(transactionItem);
 
+                        document.getElementById('transactionTotal').value = transaction.totalPrice;
                         updateProductList();
                     } else {
                         alert('Insufficient stock.');
